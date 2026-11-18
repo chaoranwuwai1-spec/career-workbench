@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="求职工作台——管理岗位、简历、真实经历与面试准备。"
+    />
+    <meta name="theme-color" content="#f4f1ea" />
+    <title>求职工作台 · Career Workbench</title>
+    <link rel="stylesheet" href="styles.css?v=20261025-five-input1" />
+    
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="返回首页顶部">
+          <span class="brand-mark" aria-hidden="true">AI</span>
+          <span>求职工作台</span>
+        </a>
+
+        <div class="topbar-meta">
+          <span class="local-badge">本地版 · V1</span>
+          <time id="today" aria-label="今天的日期"></time>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="page-title">
+          <div class="hero-copy">
+            <p class="eyebrow">CAREER WORKBENCH</p>
+            <h1 id="page-title">把求职准备，<br />放在一个清楚的地方。</h1>
+            <p class="hero-description">
+              管理岗位与简历，整理真实经历，准备每一次面试。
+            </p>
+          </div>
+
+          <aside class="today-card" aria-label="今日提示">
+            <span class="today-label">今日提示</span>
+            <p>选一件最重要的事，先完成一个小步骤。</p>
+            <span class="today-line" aria-hidden="true"></span>
+          </aside>
+        </section>
+
+        <section class="workspace" aria-labelledby="workspace-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">WORK AREAS</p>
+              <h2 id="workspace-title">求职与面试</h2>
+            </div>
+            <p>点击卡片，可以查看这个区域包含的内容。</p>
+          </div>
+
+          <div class="module-grid">
+            <a
+              class="module-card module-card--jobs"
+              href="#job-manager"
+              data-module="找工作"
+              data-index="01"
+              data-items="岗位记录,JD 分析,投递进度"
+            >
+              <div class="card-topline">
+                <span class="module-number">01</span>
+                <span class="arrow" aria-hidden="true">↗</span>
+              </div>
+              <div class="card-icon" aria-hidden="true">职</div>
+              <h3>找工作</h3>
+              <p>记录目标岗位，拆解职位要求，跟进每一次投递。</p>
+              <ul>
+                <li>岗位记录</li>
+                <li>JD 分析</li>
+                <li>投递进度</li>
+              </ul>
+            </a>
+
+            <a
+              class="module-card module-card--work"
+              href="#interview-manager"
+              data-module="工作与面试"
+              data-index="02"
+              data-items="个人经历库,面试问题库,AI回答优化,STAR案例库,面试复盘"
+            >
+              <div class="card-topline">
+                <span class="module-number">02</span>
+                <span class="arrow" aria-hidden="true">↗</span>
+              </div>
+              <div class="card-icon" aria-hidden="true">面</div>
+              <h3>工作与面试</h3>
+              <p>沉淀真实职业经历，针对不同岗位准备回答并持续复盘。</p>
+              <ul>
+                <li>经历与问题</li>
+                <li>AI回答优化</li>
+                <li>STAR与复盘</li>
+              </ul>
+            </a>
+
+            
+
+            
+
+            
+
+            
+          </div>
+        </section>
+
+        
+
+        <section
+          class="job-manager"
+          id="job-manager"
+          aria-labelledby="job-manager-title"
+          hidden
+        >
+          <div class="job-manager-hero">
+            <div>
+              <p class="section-kicker">GLOBAL JOB WORKSPACE</p>
+              <h2 id="job-manager-title">全球求职管理</h2>
+              <p>
+                从招聘信息导入、岗位决策到面试准备，把每一个机会放进同一套长期流程。
+              </p>
+            </div>
+            <div class="job-hero-actions">
+              <button class="primary-button" id="import-job-button" type="button">导入招聘信息 / JD</button>
+              <button class="secondary-button" id="screenshot-job-button" type="button">上传 JD 截图</button>
+              <button class="secondary-button" id="add-job-button" type="button">＋ 手动新增</button>
+              <button class="text-button" id="collapse-job-manager" type="button">收起求职管理 ↑</button>
+            </div>
+          </div>
+
+          <p class="storage-warning" id="storage-warning" role="alert" hidden>
+            浏览器没有允许本地保存。请检查浏览器设置后再试。
+          </p>
+          <p class="status-message" id="jobs-message" role="status"></p>
+
+          <div class="job-backup-bar">
+            <div class="job-overview-note">
+              <span class="storage-dot" aria-hidden="true"></span>
+              岗位和求职档案只保存在这台电脑的当前浏览器中
+            </div>
+            <div class="job-backup-actions">
+              <button class="secondary-button" id="export-job-data" type="button">导出岗位与求职档案</button>
+              <button class="secondary-button" id="job-resume-library" type="button">方向简历版本库</button>
+              <button class="secondary-button" id="job-directions-manage" type="button">职业方向管理</button>
+              <button class="secondary-button" id="job-ai-connect" type="button">连接本地AI服务</button>
+              <button class="secondary-button" id="import-job-backup" type="button">导入备份</button>
+              <input id="job-backup-file" type="file" accept="application/json,.json" hidden />
+              <p>部分导出包含岗位列表、求职档案、职业方向、简历版本、岗位投递及相关历史、工具库内的分析与面试准备/复盘、截图历史摘要；不包含完整原始截图、OCR缓存、独立面试经历库或本机轻量恢复点。不能代替完整备份。</p>
+            </div>
+          </div>
+
+          <div class="job-tabs" role="tablist" aria-label="求职管理功能">
+            <button class="job-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="job-panel-home" data-job-tab="home">求职首页</button>
+            <button class="job-tab" type="button" role="tab" aria-selected="false" aria-controls="job-panel-library" data-job-tab="library">岗位库 <span id="job-library-tab-count">0</span></button>
+            <button class="job-tab" type="button" role="tab" aria-selected="false" aria-controls="job-panel-history" data-job-tab="history">历史批次 / 历史JD</button>
+            <button class="job-tab" type="button" role="tab" aria-selected="false" aria-controls="job-panel-analysis" data-job-tab="analysis">岗位分析</button>
+            <button class="job-tab" type="button" role="tab" aria-selected="false" aria-controls="job-panel-interview" data-job-tab="interview">面试准备</button>
+            <button class="job-tab" type="button" role="tab" aria-selected="false" aria-controls="job-panel-compare" data-job-tab="compare">岗位比较</button>
+            <button class="job-tab" type="button" role="tab" aria-selected="false" aria-controls="job-panel-profile" data-job-tab="profile">我的求职档案</button>
+          </div>
+
+          <section class="job-panel" id="job-panel-home" data-job-panel="home">
+            <div class="job-panel-heading">
+              <div>
+                <p class="section-kicker">ACTION CENTER</p>
+                <h3>求职行动中心</h3>
+                <p>优先处理面试、停滞岗位和还没有完成诊断的机会。</p>
+              </div>
+              <button class="secondary-button" id="home-import-job" type="button">＋ 导入一个真实 JD</button>
+            </div>
+
+            <div class="job-status-stats" aria-label="求职状态统计">
+              <article><span>发现岗位</span><strong id="job-stat-discovered">0</strong></article>
+              <article><span>准备投递</span><strong id="job-stat-preparing">0</strong></article>
+              <article><span>已投递</span><strong id="job-stat-applied">0</strong></article>
+              <article><span>HR 沟通</span><strong id="job-stat-hr">0</strong></article>
+              <article><span>待面试</span><strong id="job-stat-interview">0</strong></article>
+              <article><span>已面试</span><strong id="job-stat-interviewed">0</strong></article>
+              <article><span>Offer</span><strong id="job-stat-offer">0</strong></article>
+            </div>
+
+            <section class="job-recent-section" aria-labelledby="job-recent-title">
+              <div class="job-panel-heading job-panel-heading--compact">
+                <div>
+                  <h3 id="job-recent-title">最近需要处理</h3>
+                  <p>系统根据面试时间、投递日期、岗位状态和诊断记录自动整理。</p>
+                </div>
+              </div>
+              <div class="job-action-grid" id="job-action-grid" aria-live="polite"></div>
+            </section>
+          </section>
+
+          <section class="job-panel" id="job-panel-library" data-job-panel="library" hidden>
+            <div class="job-overview" aria-label="岗位记录概况">
+              <div class="job-count-block">
+                <strong id="job-count" aria-live="polite">0</strong>
+                <span>条岗位记录</span>
+              </div>
+              <button class="primary-button" id="library-import-job" type="button">导入招聘信息 / JD</button>
+            </div>
+            <div class="job-toolbar">
+              <label for="job-direction-filter">求职方向</label>
+              <select id="job-direction-filter"><option value="全部">全部方向</option><option value="英语教育">英语教育</option><option value="外贸">外贸</option><option value="国际业务">国际业务</option><option value="海外销售">海外销售</option><option value="AI相关">AI相关</option><option value="其他">其他</option></select>
+              <label for="job-screening-filter">初筛结果</label>
+              <select id="job-screening-filter"><option value="全部">全部初筛</option><option value="待筛选">待筛选</option><option value="优先投">优先投</option><option value="可以投">可以投</option><option value="暂时保留">暂时保留</option><option value="当前能力不匹配">当前能力不匹配</option><option value="不考虑">不考虑</option></select>
+              <label for="status-filter">投递进度</label>
+              <select id="status-filter">
+                <option value="全部">全部状态</option>
+                <option value="发现岗位">发现岗位</option>
+                <option value="准备投递">准备投递</option>
+                <option value="已投递">已投递</option>
+                <option value="HR沟通">HR沟通</option>
+                <option value="待面试">待面试</option>
+                <option value="已面试">已面试</option>
+                <option value="Offer">Offer</option>
+                <option value="已入职">已入职</option>
+                <option value="主动放弃">主动放弃</option>
+                <option value="被拒绝">被拒绝</option>
+              </select>
+              <label for="job-rejection-reason-filter">不投原因</label>
+              <select id="job-rejection-reason-filter"><option value="全部">全部原因</option><option value="英语能力暂时达不到">英语不足</option><option value="专业不符合">专业不符</option><option value="工作经验不够">经验不足</option><option value="学历不符合">学历不符</option><option value="技术能力不足">技术不足</option><option value="薪资太低">薪资低</option><option value="工作时间太差">工作时间</option><option value="单休 / 休息太少">休息太少</option><option value="地点不合适">地点问题</option><option value="工作内容不喜欢">工作内容</option><option value="与长期职业方向不符">方向不符</option><option value="公司/岗位风险较高">风险问题</option><option value="无底薪 / 收入不稳定">收入不稳定</option><option value="招聘信息过于模糊">信息模糊</option><option value="已经投递过">已经投递过</option><option value="重复岗位">重复岗位</option><option value="其他">其他</option></select>
+              <span class="filter-result" id="filter-result"></span>
+              <button class="secondary-button" id="library-add-job" type="button">＋ 手动新增岗位</button>
+            </div>
+            <div class="job-bulk-toolbar" id="job-bulk-toolbar">
+              <label><input id="job-select-visible" type="checkbox"> 全选当前列表</label>
+              <span id="job-selected-count">已选 0 条</span>
+              <button class="danger-button" id="delete-selected-jobs" type="button" disabled>删除已选岗位</button>
+            </div>
+            <div class="job-list" id="job-list" aria-live="polite"></div>
+          </section>
+
+          <section class="job-panel" id="job-panel-history" data-job-panel="history" hidden>
+            <div class="job-panel-heading">
+              <div>
+                <p class="section-kicker">JD IMPORT HISTORY</p>
+                <h3>历史批次 / 历史JD</h3>
+                <p>完整批次保存在当前浏览器中；可以重新打开未完成批次继续处理，不需要重新上传截图。</p>
+              </div>
+              <button class="secondary-button" id="refresh-job-batch-history" type="button">刷新历史记录</button>
+            </div>
+            <p class="job-history-storage-status" id="job-history-storage-status" role="status"></p>
+            <div class="job-bulk-toolbar" id="job-history-bulk-toolbar">
+              <label><input id="job-history-select-visible" type="checkbox"> 全选当前历史记录</label>
+              <span id="job-history-selected-count">已选 0 条</span>
+              <button class="danger-button" id="delete-selected-job-history" type="button" disabled>删除已选历史记录</button>
+            </div>
+            <div class="job-batch-history-list" id="job-batch-history-list" aria-live="polite"></div>
+          </section>
+
+          <section class="job-panel" id="job-panel-analysis" data-job-panel="analysis" hidden>
+            <div class="job-panel-heading">
+              <div>
+                <p class="section-kicker">AI JOB DIAGNOSIS</p>
+                <h3>岗位 AI 诊断</h3>
+                <p>工作台只负责生成提示词和保存结果；不会自动上传 JD 或个人档案。</p>
+              </div>
+              <label class="job-tool-select">选择岗位<select id="job-analysis-select"></select></label>
+            </div>
+            <div class="job-tool-layout">
+              <section class="job-tool-card">
+                <div class="job-selected-summary" id="job-analysis-summary"></div>
+                <div class="job-tool-actions">
+                  <button class="primary-button" id="generate-analysis-prompt" type="button">生成 AI 分析提示词</button>
+                  <button class="secondary-button" id="copy-analysis-prompt" type="button">复制提示词</button>
+                </div>
+                <label for="job-analysis-prompt">生成的提示词</label>
+                <textarea id="job-analysis-prompt" rows="15" readonly placeholder="选择岗位后点击“生成 AI 分析提示词”。"></textarea>
+              </section>
+              <section class="job-tool-card">
+                <label for="job-analysis-result">粘贴 ChatGPT 的分析结果</label>
+                <textarea id="job-analysis-result" rows="15" placeholder="支持提示词要求的 JSON；也可以保存普通文字结果。"></textarea>
+                <div class="job-tool-actions job-tool-actions--end">
+                  <button class="primary-button" id="save-analysis-result" type="button">保存到这个岗位</button>
+                </div>
+              </section>
+            </div>
+            <div class="job-saved-result" id="job-saved-analysis"></div>
+          </section>
+
+          <section class="job-panel" id="job-panel-interview" data-job-panel="interview" hidden>
+            <div class="job-panel-heading">
+              <div>
+                <p class="section-kicker">INTERVIEW PREP</p>
+                <h3>面试准备中心</h3>
+                <p>围绕一个真实岗位，用最低必要准备达到“足够继续留在面试流程里”。</p>
+              </div>
+              <label class="job-tool-select">选择岗位<select id="job-interview-select"></select></label>
+            </div>
+            <section class="job-tool-card job-interview-source-card">
+              <div class="job-selected-summary" id="job-interview-summary"></div>
+              <h4>第一步：确认这次面试使用的简历</h4>
+              <p>已经投递时优先使用当时真正投出去的简历；尚未投递时使用当前岗位简历。</p>
+              <div class="job-interview-source-row">
+                <label class="form-field" for="job-interview-resume-select">本次面试依据的简历
+                  <select id="job-interview-resume-select"></select>
+                </label>
+                <button class="primary-button" id="confirm-interview-resume" type="button">确认使用这份简历</button>
+              </div>
+              <p class="job-result-note" id="job-interview-resume-status">请先确认面试官实际看到或将要看到的简历。</p>
+            </section>
+            <section class="job-tool-card job-interview-readiness-card">
+              <div class="job-panel-heading">
+                <div>
+                  <h4>这场面试先注意什么</h4>
+                  <p>只看最关键的提醒，然后尽快开口练。详细分析仍会保存，但不要求先读完。</p>
+                </div>
+                <button class="primary-button" id="start-interview-simulation" type="button">开始快速模拟</button>
+              </div>
+              <div id="job-interview-readiness"></div>
+            </section>
+
+            <div class="job-saved-result" id="job-saved-interview"></div>
+
+            <details class="workspace-collapsible job-interview-manual-mode">
+              <summary>手动模式 / 高级操作</summary>
+              <div class="workspace-collapsible__body">
+                <p>当前没有统一AI接口时，才需要在这里复制提示词并导入ChatGPT结果。这里不会成为正常使用页面的视觉主体。</p>
+                <div class="job-tool-layout">
+                  <section class="job-tool-card">
+                    <h4>生成后台分析</h4>
+                    <div class="job-tool-actions">
+                      <button class="primary-button" id="generate-interview-prompt" type="button">生成面试分析提示词</button>
+                      <button class="secondary-button" id="copy-interview-prompt" type="button">复制提示词</button>
+                    </div>
+                    <label for="job-interview-prompt">生成的提示词</label>
+                    <textarea id="job-interview-prompt" rows="15" readonly></textarea>
+                  </section>
+                  <section class="job-tool-card">
+                    <label for="job-interview-result">粘贴 ChatGPT 的分析结果</label>
+                    <textarea id="job-interview-result" rows="15" placeholder="粘贴提示词要求的JSON；旧版普通文字仍会保留为历史准备记录。"></textarea>
+                    <div class="job-tool-actions job-tool-actions--end">
+                      <button class="primary-button" id="save-interview-result" type="button">导入并保存后台分析</button>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </details>
+
+            <section class="job-tool-card job-interview-simulation-card">
+              <div><h4>一次一题快速模拟</h4><p>回答够用就继续；有明显漏洞时只补当前最重要的一处。连续几题已经够用时可以提前结束。</p></div>
+              <p class="job-result-note" id="job-interview-simulation-status">请先完成后台分析。</p>
+              <details class="workspace-collapsible workspace-collapsible--compact job-interview-session-history" id="job-interview-session-history-details">
+                <summary>历史模拟 <span id="job-interview-session-history-count">0</span></summary>
+                <div class="workspace-collapsible__body" id="job-interview-session-history"></div>
+              </details>
+              <div id="job-interview-current-question" hidden>
+                <p class="section-kicker" id="job-interview-question-progress">QUESTION</p>
+                <h4 id="job-interview-question-text"></h4>
+                <p id="job-interview-question-why"></p>
+                <label class="form-field" for="job-interview-answer">我的回答
+                  <textarea id="job-interview-answer" rows="7" placeholder="先用自己的话回答。不需要追求完美，但不要编造经历。"></textarea>
+                </label>
+                <div class="job-tool-actions">
+                  <button class="secondary-button" id="interview-dont-know" type="button">不会</button>
+                  <button class="secondary-button" id="interview-show-reference" type="button" hidden>还是不会，看参考答案</button>
+                  <button class="primary-button" id="generate-interview-turn-prompt" type="button">评估这次回答</button>
+                </div>
+                <div class="job-interview-reference job-interview-hint" id="job-interview-hint" hidden></div>
+                <div class="job-interview-reference" id="job-interview-reference" hidden></div>
+                <button class="primary-button" id="interview-next-after-reference" type="button" hidden>看完，重新回答这一题</button>
+                <details class="workspace-collapsible workspace-collapsible--compact job-interview-turn-manual-mode">
+                  <summary>手动模式 / 高级操作（评估当前回答）</summary>
+                  <div class="workspace-collapsible__body">
+                    <label class="form-field" for="job-interview-turn-prompt">本题评估提示词<textarea id="job-interview-turn-prompt" rows="12" readonly></textarea></label>
+                    <button class="secondary-button" id="copy-interview-turn-prompt" type="button">复制本题评估提示词</button>
+                    <label class="form-field" for="job-interview-turn-result">粘贴ChatGPT评估结果<textarea id="job-interview-turn-result" rows="8" placeholder='例如：{"verdict":"enough","feedback":"已经够用","keyImprovement":"补一句真实结果"}'></textarea></label>
+                    <button class="primary-button" id="save-interview-turn-evaluation" type="button">保存评估结果</button>
+                    <p class="job-interview-inline-status" id="job-interview-turn-save-status" role="status" aria-live="polite"></p>
+                  </div>
+                </details>
+                <div id="job-interview-last-feedback"></div>
+              </div>
+            </section>
+
+            <section class="job-tool-card job-interview-debrief-card">
+              <details class="workspace-collapsible">
+                <summary>正式面试后快速复盘</summary>
+                <div class="workspace-collapsible__body">
+                  <p>先快速记下实际发生的三件事。招聘方透露的新情况只保存在本次复盘中，不会覆盖原JD或求职档案。</p>
+                  <div class="form-grid">
+                    <label class="form-field">面试日期<input id="job-interview-debrief-date" type="date" /></label>
+                    <label class="form-field">面试轮次<input id="job-interview-debrief-round" placeholder="例如：初面" /></label>
+                    <label class="form-field">最终结果<select id="job-interview-debrief-result"><option>等待结果</option><option>进入下一轮</option><option>未通过</option><option>收到Offer</option><option>主动放弃</option></select></label>
+                    <label class="form-field form-field--wide">1. 面试官实际问了什么<textarea id="job-interview-debrief-questions" rows="4" placeholder="按顺序记录你还记得的真实问题。"></textarea></label>
+                    <label class="form-field form-field--wide">2. 哪里答得比较顺<textarea id="job-interview-debrief-answers" rows="3" placeholder="只记真正答得顺的地方。"></textarea></label>
+                    <label class="form-field form-field--wide">哪里卡住或说不清<textarea id="job-interview-debrief-stuck" rows="3"></textarea></label>
+                    <label class="form-field form-field--wide">3. 面试中知道了哪些原JD没有的信息<textarea id="job-interview-debrief-jd" rows="3" placeholder="例如实际职责、薪资结构、工时、休息或团队情况。"></textarea></label>
+                  </div>
+                  <details class="workspace-collapsible workspace-collapsible--compact job-interview-debrief-details">
+                    <summary>补充详细记录（可选）</summary>
+                    <div class="workspace-collapsible__body form-grid">
+                      <label class="form-field form-field--wide">面试官继续追问了什么<textarea id="job-interview-debrief-followups" rows="3"></textarea></label>
+                      <label class="form-field">薪资/提成真实信息<input id="job-interview-debrief-salary" /></label>
+                      <label class="form-field">工作时间<input id="job-interview-debrief-hours" /></label>
+                      <label class="form-field">休息安排<input id="job-interview-debrief-rest" /></label>
+                      <label class="form-field">试用期<input id="job-interview-debrief-probation" /></label>
+                      <label class="form-field">培训/收费情况<input id="job-interview-debrief-training" /></label>
+                      <label class="form-field form-field--wide">下次类似岗位最需要改什么<textarea id="job-interview-debrief-next" rows="3"></textarea></label>
+                    </div>
+                  </details>
+                  <button class="primary-button" id="save-job-interview-debrief" type="button">保存正式面试复盘</button>
+                </div>
+              </details>
+              <div id="job-interview-history"></div>
+            </section>
+          </section>
+
+          <section class="job-panel" id="job-panel-compare" data-job-panel="compare" hidden>
+            <div class="job-panel-heading">
+              <div>
+                <p class="section-kicker">JOB COMPARISON</p>
+                <h3>岗位横向比较</h3>
+                <p>选择 2～5 个岗位，从工作条件、门槛、成长和风险等方面一起看。</p>
+              </div>
+              <button class="primary-button" id="run-job-comparison" type="button">生成比较</button>
+            </div>
+            <div class="job-compare-picker" id="job-compare-picker"></div>
+            <p class="job-compare-hint" id="job-compare-hint">请选择 2～5 个岗位。</p>
+            <div class="job-comparison-output" id="job-comparison-output"></div>
+          </section>
+
+          <section class="job-panel" id="job-panel-profile" data-job-panel="profile" hidden>
+            <div class="job-panel-heading">
+              <div>
+                <p class="section-kicker">MY JOB PROFILE</p>
+                <h3>我的求职档案</h3>
+                <p>只填写求职分析需要的信息，不要填写身份证、银行卡、护照号或家庭住址。</p>
+              </div>
+              <span class="job-profile-saved" id="job-profile-saved">尚未保存</span>
+            </div>
+            <form class="job-profile-form" id="job-profile-form">
+              <section class="job-profile-section" aria-labelledby="profile-basic-heading">
+                <div class="job-profile-section__heading"><span>01</span><div><h4 id="profile-basic-heading">基本硬条件</h4><p>客观事实；不会和求职偏好混在一起。</p></div></div>
+                <div class="form-grid">
+                  <div class="form-field"><label for="profile-current-identity">当前身份</label><input id="profile-current-identity" name="currentIdentity" type="text" placeholder="如在职、待业、自由职业；可留空" /></div>
+                  <div class="form-field"><label for="profile-education">学历</label><input id="profile-education" name="education" type="text" /></div>
+                  <div class="form-field"><label for="profile-school">学校</label><input id="profile-school" name="school" type="text" /></div>
+                  <div class="form-field"><label for="profile-institution-tier">院校层次</label><input id="profile-institution-tier" name="institutionTier" type="text" placeholder="如普通本科、双一流；没有可留空" /></div>
+                  <div class="form-field"><label for="profile-major">专业</label><input id="profile-major" name="major" type="text" /></div>
+                  <div class="form-field"><label for="profile-graduation-year">毕业年份</label><input id="profile-graduation-year" name="graduationYear" type="text" inputmode="numeric" /></div>
+                  <div class="form-field"><label for="profile-current-location">当前所在地</label><input id="profile-current-location" name="currentLocation" type="text" /></div>
+                  <div class="form-field"><label for="profile-certificates">证书</label><input id="profile-certificates" name="certificates" type="text" placeholder="除语言证书外的证书" /></div>
+                  <div class="form-field form-field--wide"><label for="profile-work-experience">工作经历</label><textarea id="profile-work-experience" name="workExperience" rows="4"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-internship-experience">实习经历</label><textarea id="profile-internship-experience" name="internshipExperience" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-driving-license">驾照或其他硬条件</label><textarea id="profile-driving-license" name="drivingLicenseOther" rows="2"></textarea></div>
+                  <div class="form-field"><label for="profile-internship-status">正式实习经历状态</label><select id="profile-internship-status" name="internshipStatus"><option value="未设置">未设置</option><option value="暂无正式实习经历">暂无正式实习经历</option><option value="有正式实习经历">有正式实习经历</option></select></div>
+                </div>
+                <div class="job-profile-list-heading"><div><h5>结构化工作 / 实践经历</h5><p>每条经历独立保存；是否属于真实工作经验由你确认。</p></div><button class="secondary-button" id="add-job-profile-experience" type="button">＋ 新增经历</button></div>
+                <div class="job-profile-repeat-list" id="job-profile-experience-list"></div>
+              </section>
+
+              <section class="job-profile-section" aria-labelledby="profile-ability-heading">
+                <div class="job-profile-section__heading"><span>02</span><div><h4 id="profile-ability-heading">能力档案</h4><p>实际能力、学习经历和证书事实分别记录，不相互推断。</p></div></div>
+                <div class="form-grid">
+                  <div class="form-field form-field--wide"><label for="profile-english-ability">英语实际能力描述</label><textarea id="profile-english-ability" name="englishAbilityDescription" rows="3"></textarea></div>
+                  <div class="form-field"><label for="profile-english-certificates">英语证书</label><input id="profile-english-certificates" name="englishCertificates" type="text" /></div>
+                  <div class="form-field"><label for="profile-english-has-certificate">是否有英语证书</label><select id="profile-english-has-certificate" name="englishHasCertificate"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option></select></div>
+                  <div class="form-field"><label for="profile-english-certificate-details">英语考试成绩 / 证书详情</label><input id="profile-english-certificate-details" name="englishCertificateDetails" type="text" /></div>
+                  <div class="form-field form-field--wide"><label for="profile-japanese-ability">日语实际能力描述</label><textarea id="profile-japanese-ability" name="japaneseAbilityDescription" rows="3"></textarea></div>
+                  <div class="form-field"><label for="profile-japanese">日语水平</label><input id="profile-japanese" name="japaneseLevel" type="text" /></div>
+                  <div class="form-field"><label for="profile-japanese-has-certificate">是否有日语证书</label><select id="profile-japanese-has-certificate" name="japaneseHasCertificate"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option></select></div>
+                  <div class="form-field"><label for="profile-japanese-certificate-details">日语等级证书详情</label><input id="profile-japanese-certificate-details" name="japaneseCertificateDetails" type="text" /></div>
+                  <div class="form-field"><label for="profile-english-reading">英语阅读</label><input id="profile-english-reading" name="englishReading" type="text" /></div>
+                  <div class="form-field"><label for="profile-english-writing">英语写作</label><input id="profile-english-writing" name="englishWriting" type="text" /></div>
+                  <div class="form-field"><label for="profile-english-listening">英语听力</label><input id="profile-english-listening" name="englishListening" type="text" /></div>
+                  <div class="form-field"><label for="profile-english-speaking">英语口语</label><input id="profile-english-speaking" name="englishSpeaking" type="text" /></div>
+                  <div class="form-field"><label for="profile-ai-tools">AI工具能力</label><input id="profile-ai-tools" name="aiToolsAbility" type="text" /></div>
+                  <div class="form-field"><label for="profile-office-data">Office / 数据处理能力</label><input id="profile-office-data" name="officeDataAbility" type="text" /></div>
+                  <div class="form-field"><label for="profile-sales-communication">销售 / 沟通能力</label><input id="profile-sales-communication" name="salesCommunicationAbility" type="text" /></div>
+                  <div class="form-field"><label for="profile-teaching-ability">教学能力</label><input id="profile-teaching-ability" name="teachingAbility" type="text" /></div>
+                  <div class="form-field form-field--wide"><label for="profile-other-skills">其他技能</label><textarea id="profile-other-skills" name="otherSkills" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-project-experience">项目经历</label><textarea id="profile-project-experience" name="projectExperience" rows="4"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-languages">其他语言</label><input id="profile-languages" name="otherLanguages" type="text" /></div>
+                </div>
+                <div class="job-profile-list-heading"><div><h5>其他语言记录</h5><p>每种语言单独记录能力与证书。</p></div><button class="secondary-button" id="add-job-profile-other-language" type="button">＋ 新增语言</button></div>
+                <div class="job-profile-repeat-list" id="job-profile-other-language-list"></div>
+                <div class="job-profile-list-heading"><div><h5>AI / 数字工具实际实践</h5><p>只记录实际使用和项目实践，不自动等同于AI行业工作经验。</p></div><button class="secondary-button" id="add-job-profile-tool-practice" type="button">＋ 新增工具实践</button></div>
+                <div class="job-profile-repeat-list" id="job-profile-tool-practice-list"></div>
+                <div class="job-profile-list-heading"><div><h5>项目经历（逐项记录）</h5><p>仅填写实际做过的事情；勾选允许用于简历后，生成简历才会读取该项目。原有项目概述继续保留。</p></div><button class="secondary-button" id="add-job-profile-project" type="button">＋ 新增项目</button></div>
+                <div class="job-profile-repeat-list" id="job-profile-project-list"></div>
+                <details class="job-profile-legacy workspace-collapsible workspace-collapsible--compact"><summary>原有档案字段（兼容保留）</summary><div class="form-grid workspace-collapsible__body">
+                  <div class="form-field form-field--wide"><label for="profile-experience">原工作 / 实习概述</label><textarea id="profile-experience" name="experience" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-teaching">原教学经历</label><textarea id="profile-teaching" name="teachingExperience" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-skills">原主要技能</label><textarea id="profile-skills" name="skills" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-english">原英语水平概述</label><input id="profile-english" name="englishLevel" type="text" /></div>
+                </div></details>
+              </section>
+
+              <section class="job-profile-section" aria-labelledby="profile-qualification-heading">
+                <div class="job-profile-section__heading"><span>03</span><div><h4 id="profile-qualification-heading">证书与硬条件</h4><p>持有驾照不等于熟练驾驶；证书状态必须由用户明确填写。</p></div></div>
+                <div class="form-grid">
+                  <div class="form-field"><label for="profile-has-driving-license">是否持有驾驶证</label><select id="profile-has-driving-license" name="hasDrivingLicense"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option></select></div>
+                  <div class="form-field"><label for="profile-driving-license-type">驾照类型</label><input id="profile-driving-license-type" name="drivingLicenseType" type="text" /></div>
+                  <div class="form-field form-field--wide"><label for="profile-driving-proficiency">实际驾驶熟练度</label><textarea id="profile-driving-proficiency" name="drivingProficiency" rows="2"></textarea></div>
+                  <div class="form-field"><label for="profile-has-teacher-qualification">是否有教师资格证</label><select id="profile-has-teacher-qualification" name="hasTeacherQualification"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option></select></div>
+                  <div class="form-field"><label for="profile-teacher-qualification-details">教师资格证详情</label><input id="profile-teacher-qualification-details" name="teacherQualificationDetails" type="text" /></div>
+                  <div class="form-field form-field--wide"><label for="profile-other-qualifications">其他职业资格</label><textarea id="profile-other-qualifications" name="otherQualifications" rows="3"></textarea></div>
+                </div>
+              </section>
+
+              <section class="job-profile-section" aria-labelledby="profile-preference-heading">
+                <div class="job-profile-section__heading"><span>04</span><div><h4 id="profile-preference-heading">求职方向、偏好与底线</h4><p>愿意探索不等于已经拥有该方向的工作经验。</p></div></div>
+                <fieldset class="job-profile-direction-picker"><legend>愿意探索的求职方向（可多选）</legend><div class="job-profile-choice-grid">
+                  <label><input type="checkbox" value="英语教育" data-profile-direction />英语教育</label>
+                  <label><input type="checkbox" value="外贸" data-profile-direction />外贸</label>
+                  <label><input type="checkbox" value="国际业务" data-profile-direction />国际业务</label>
+                  <label><input type="checkbox" value="海外销售" data-profile-direction />海外销售</label>
+                  <label><input type="checkbox" value="AI相关" data-profile-direction />AI相关</label>
+                  <label><input type="checkbox" value="其他" data-profile-direction />其他</label>
+                </div></fieldset>
+                <div class="form-grid">
+                  <div class="form-field form-field--wide"><label for="profile-direction">原当前求职方向文本（兼容保留）</label><textarea id="profile-direction" name="currentDirection" rows="2"></textarea></div>
+                  <div class="form-field"><label for="profile-work-types">可接受的工作类型</label><input id="profile-work-types" name="acceptableWorkTypes" type="text" placeholder="全职、兼职、远程等" /></div>
+                  <div class="form-field"><label for="profile-locations">可接受的城市 / 地区</label><input id="profile-locations" name="acceptableLocations" type="text" /></div>
+                  <div class="form-field"><label for="profile-overseas-work">是否接受海外工作</label><select id="profile-overseas-work" name="acceptOverseasWork"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option><option value="视情况而定">视情况而定</option></select></div>
+                  <div class="form-field"><label for="profile-english-test">是否接受英文面试或测试</label><select id="profile-english-test" name="acceptEnglishInterviewTest"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option><option value="视情况而定">视情况而定</option></select></div>
+                  <div class="form-field"><label for="profile-travel">是否接受出差</label><select id="profile-travel" name="acceptTravel"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option><option value="视情况而定">视情况而定</option></select></div>
+                  <div class="form-field"><label for="profile-relocation">是否接受搬迁</label><select id="profile-relocation" name="acceptRelocation"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option><option value="视情况而定">视情况而定</option></select></div>
+                  <div class="form-field"><label for="profile-sales">是否接受销售性质工作</label><select id="profile-sales" name="acceptSales"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option><option value="视情况而定">视情况而定</option></select></div>
+                  <div class="form-field"><label for="profile-single-rest">是否接受单休</label><select id="profile-single-rest" name="acceptSingleRest"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option><option value="视情况而定">视情况而定</option></select></div>
+                  <div class="form-field"><label for="profile-no-base-salary">是否接受无底薪</label><select id="profile-no-base-salary" name="acceptNoBaseSalary"><option value="未设置">未设置</option><option value="是">是</option><option value="否">否</option><option value="视情况而定">视情况而定</option></select></div>
+                  <div class="form-field"><label for="profile-salary">期望薪资</label><input id="profile-salary" name="expectedSalary" type="text" /></div>
+                  <div class="form-field"><label for="profile-minimum-salary">最低可接受薪资</label><input id="profile-minimum-salary" name="minimumSalary" type="text" /></div>
+                  <div class="form-field form-field--wide"><label for="profile-unacceptable">明确不能接受的工作条件</label><textarea id="profile-unacceptable" name="unacceptableConditions" rows="3"></textarea></div>
+                </div>
+              </section>
+
+              <section class="job-profile-section" aria-labelledby="profile-goal-heading">
+                <div class="job-profile-section__heading"><span>05</span><div><h4 id="profile-goal-heading">职业目标与当前短板</h4><p>当前优先、过渡方向、长期目标和现阶段差距分开记录。</p></div></div>
+                <div class="form-grid">
+                  <div class="form-field form-field--wide"><label for="profile-priority-direction">当前优先方向</label><textarea id="profile-priority-direction" name="priorityDirection" rows="2"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-transition-directions">可以接受的过渡方向</label><textarea id="profile-transition-directions" name="transitionDirections" rows="2"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-goal">长期职业目标</label><textarea id="profile-goal" name="longTermGoal" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-improvement-focus">当前重点提升的能力</label><textarea id="profile-improvement-focus" name="currentImprovementFocus" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="profile-conditions">其他个人求职条件（原字段兼容）</label><textarea id="profile-conditions" name="otherConditions" rows="3"></textarea></div>
+                </div>
+                <div class="job-profile-list-heading"><div><h5>当前短板 / 缺失经历</h5><p>用于说明现阶段差距，不会永久淘汰求职方向。</p></div><button class="secondary-button" id="add-job-profile-gap" type="button">＋ 新增短板</button></div>
+                <div class="job-profile-repeat-list" id="job-profile-gap-list"></div>
+              </section>
+              <div class="form-actions job-profile-save-actions"><span class="job-profile-save-feedback" id="job-profile-save-feedback" role="status" aria-live="polite"></span><button class="primary-button" type="submit">保存我的求职档案</button></div>
+            </form>
+          </section>
+        </section>
+
+        
+
+        
+
+        
+
+        <section class="interview-manager" id="interview-manager" hidden aria-labelledby="interview-manager-title">
+          <div class="interview-manager__header">
+            <div>
+              <p class="section-kicker">CAREER CAPABILITY DATABASE</p>
+              <h2 id="interview-manager-title">工作与面试</h2>
+              <p>把真实经历整理成可以针对不同岗位调用的职业能力数据库。</p>
+            </div>
+            <button class="secondary-button" id="collapse-interview-manager" type="button">收起工作台 ↑</button>
+          </div>
+
+          <p class="interview-message" id="interview-message" role="status" aria-live="polite"></p>
+          <div class="interview-summary" id="interview-summary"></div>
+
+          <nav class="interview-tabs" aria-label="工作与面试功能">
+            <button class="is-active" type="button" data-interview-tab="sops">当前工作 SOP</button>
+            <button type="button" data-interview-tab="work-lessons">工作经验库</button>
+            <button type="button" data-interview-tab="experiences">个人经历库</button>
+            <button type="button" data-interview-tab="questions">面试问题库</button>
+            <button type="button" data-interview-tab="ai">AI回答优化</button>
+            <button type="button" data-interview-tab="stars">STAR案例库</button>
+            <button type="button" data-interview-tab="reviews">面试复盘</button>
+          </nav>
+
+          <section class="interview-panel" data-interview-panel="sops">
+            <div class="interview-panel__heading">
+              <div><p class="section-kicker">CURRENT WORK SOP</p><h3>当前工作 SOP</h3><p>记录某家公司具体怎么做事情；离职或更换工作后可以归档，不与通用工作经验混在一起。</p></div>
+              <button class="primary-button" id="add-work-sop" type="button">＋ 新建 SOP</button>
+            </div>
+            <label class="interview-filter">查看范围
+              <select id="work-sop-status-filter"><option value="active">当前使用</option><option value="archived">已归档</option><option value="all">全部 SOP</option></select>
+            </label>
+            <div class="work-sop-list" id="work-sop-list"></div>
+          </section>
+
+          <section class="interview-panel" data-interview-panel="work-lessons" hidden>
+            <div class="interview-panel__heading">
+              <div><p class="section-kicker">TRANSFERABLE WORK LESSONS</p><h3>工作经验库</h3><p>记录换一家公司仍然可以使用的经验、原则和实践结果。</p></div>
+              <button class="primary-button" id="add-work-lesson" type="button">＋ 添加工作经验</button>
+            </div>
+            <div class="work-lesson-toolbar">
+              <label class="interview-filter">搜索
+                <input id="work-lesson-search" type="search" placeholder="搜索事件、问题、原则……" />
+              </label>
+              <label class="interview-filter">标签
+                <select id="work-lesson-tag-filter"><option value="all">全部标签</option></select>
+              </label>
+            </div>
+            <div class="interview-card-grid" id="work-lesson-list"></div>
+          </section>
+
+          <section class="interview-panel" data-interview-panel="experiences" hidden>
+            <div class="interview-panel__heading">
+              <div><p class="section-kicker">REAL EXPERIENCE</p><h3>个人经历库</h3><p>同一段真实经历可以标记多个适用岗位，后续回答时按岗位筛选。</p></div>
+              <button class="primary-button" id="add-interview-experience" type="button">＋ 添加真实经历</button>
+            </div>
+            <label class="interview-filter">按岗位方向查看
+              <select id="interview-experience-role-filter"><option value="all">全部岗位方向</option><option>AI相关</option><option>英语老师</option><option>小学其他学科老师</option><option>初中其他学科老师</option><option>视频剪辑</option><option>销售</option><option>运营</option><option>通用</option></select>
+            </label>
+            <div class="interview-card-grid" id="interview-experience-list"></div>
+            <section class="interview-project-section">
+              <div class="interview-panel__heading"><div><h3>视频剪辑项目案例</h3><p>记录真实制作流程、工具、数据表现和复盘，可在面试问题中直接调用。</p></div><button class="secondary-button" id="add-video-project-case" type="button">＋ 添加项目案例</button></div>
+              <div class="interview-card-grid" id="video-project-case-list"></div>
+            </section>
+          </section>
+
+          <section class="interview-panel" data-interview-panel="questions" hidden>
+            <div class="interview-panel__heading">
+              <div><p class="section-kicker">QUESTION BANK</p><h3>面试问题库</h3><p>保存真实遇到或准备中的问题，并关联最适合支撑回答的经历。</p></div>
+              <button class="primary-button" id="add-interview-question" type="button">＋ 添加面试问题</button>
+            </div>
+            <label class="interview-filter">按岗位方向查看
+              <select id="interview-question-role-filter"><option value="all">全部岗位方向</option><option>英语老师</option><option>小学其他学科老师</option><option>初中其他学科老师</option><option>视频剪辑</option><option>销售</option><option>运营</option><option>通用</option></select>
+            </label>
+            <div class="interview-card-grid" id="interview-question-list"></div>
+          </section>
+
+          <section class="interview-panel" data-interview-panel="ai" hidden>
+            <div class="interview-panel__heading">
+              <div><p class="section-kicker">ANSWER IMPROVEMENT</p><h3>AI回答优化</h3><p>只把当前问题和已关联的真实经历整理成提示词，不允许 AI 补写不存在的经历。</p></div>
+            </div>
+            <div class="interview-ai-layout">
+              <div class="interview-ai-main">
+                <label class="form-field">选择面试问题<select id="interview-ai-question"></select></label>
+                <div class="interview-ai-context" id="interview-ai-context"></div>
+                <label class="form-field" for="interview-answer-draft">我的原始回答<textarea id="interview-answer-draft" rows="8" placeholder="先用自己的话回答。没有真实数据就不要编造。"></textarea></label>
+                <div class="form-actions interview-inline-actions">
+                  <button class="secondary-button" id="save-interview-answer-draft" type="button">保存原始回答</button>
+                  <button class="primary-button" id="generate-interview-answer-prompt" type="button">生成AI优化提示词</button>
+                </div>
+                <div class="interview-answer-check" id="interview-answer-check"></div>
+                <label class="form-field" for="interview-answer-prompt">可复制给 ChatGPT 的提示词<textarea id="interview-answer-prompt" rows="14" readonly></textarea></label>
+                <button class="secondary-button" id="copy-interview-answer-prompt" type="button">复制提示词</button>
+              </div>
+              <aside class="interview-ai-result">
+                <label class="form-field" for="interview-ai-result">粘贴 ChatGPT 的优化结果<textarea id="interview-ai-result" rows="18" placeholder="要求结果包含：岗位符合度、具体性、案例情况、提升建议和优化后的回答。"></textarea></label>
+                <button class="primary-button" id="save-interview-ai-result" type="button">保存AI优化结果</button>
+                <p id="interview-ai-saved">尚未保存优化结果</p>
+              </aside>
+            </div>
+          </section>
+
+          <section class="interview-panel" data-interview-panel="stars" hidden>
+            <div class="interview-panel__heading">
+              <div><p class="section-kicker">STAR STORIES</p><h3>STAR案例库</h3><p>把重要经历整理成情境、任务、行动和结果，方便在不同问题中复用。</p></div>
+              <button class="primary-button" id="add-star-case" type="button">＋ 添加STAR案例</button>
+            </div>
+            <div class="interview-card-grid" id="star-case-list"></div>
+          </section>
+
+          <section class="interview-panel" data-interview-panel="reviews" hidden>
+            <div class="interview-panel__heading">
+              <div><p class="section-kicker">INTERVIEW REVIEW</p><h3>面试复盘</h3><p>记录实际问题、表现和下一次行动，让经历库与问题库持续变得更准确。</p></div>
+              <button class="primary-button" id="add-interview-review" type="button">＋ 新增面试复盘</button>
+            </div>
+            <div class="interview-card-grid" id="interview-review-list"></div>
+          </section>
+        </section>
+
+        <dialog class="job-dialog interview-dialog" id="work-sop-dialog" aria-labelledby="work-sop-dialog-title">
+          <form class="job-form" id="work-sop-form">
+            <div class="dialog-heading"><div><p class="section-kicker">CURRENT WORK SOP</p><h2 id="work-sop-dialog-title">新建工作 SOP</h2><p>这里只保存当前公司或项目的具体做法，通用经验请放到工作经验库。</p></div><button class="dialog-close" type="button" data-close-interview-dialog aria-label="关闭SOP表单">×</button></div>
+            <div class="interview-dialog-scroll"><div class="form-grid">
+              <div class="form-field"><label for="work-sop-project">工作 / 项目名称 <span>必填</span></label><input id="work-sop-project" name="workProjectName" required placeholder="合成示例：示例培训项目（非真实机构）" /></div>
+              <div class="form-field"><label for="work-sop-name">SOP 名称 <span>必填</span></label><input id="work-sop-name" name="name" required placeholder="例如：上课 SOP" /></div>
+              <div class="form-field"><label for="work-sop-status">当前状态</label><select id="work-sop-status" name="status"><option value="active">使用中</option><option value="archived">已归档</option></select></div>
+              <div class="form-field form-field--wide"><label for="work-sop-note">整体备注</label><textarea id="work-sop-note" name="note" rows="4" placeholder="可以记录适用范围、版本或仍需确认的整体问题。"></textarea></div>
+            </div></div>
+            <div class="form-actions"><button class="secondary-button" type="button" data-close-interview-dialog>取消</button><button class="primary-button" type="submit">保存 SOP</button></div>
+          </form>
+        </dialog>
+
+        <dialog class="job-dialog interview-dialog" id="work-sop-step-dialog" aria-labelledby="work-sop-step-dialog-title">
+          <form class="job-form" id="work-sop-step-form">
+            <div class="dialog-heading"><div><p class="section-kicker">SOP STEP</p><h2 id="work-sop-step-dialog-title">新增流程步骤</h2><p>不确定的内容可以先留空，并标记为“需要确认”。</p></div><button class="dialog-close" type="button" data-close-interview-dialog aria-label="关闭步骤表单">×</button></div>
+            <div class="interview-dialog-scroll"><div class="form-grid">
+              <div class="form-field form-field--wide"><label for="work-sop-step-title">步骤标题 <span>必填</span></label><input id="work-sop-step-title" name="title" required /></div>
+              <div class="form-field"><label for="work-sop-step-mastery">掌握状态</label><select id="work-sop-step-mastery" name="masteryStatus"><option>需要确认</option><option>还不熟</option><option>已掌握</option></select></div>
+              <div class="form-field"><label for="work-sop-step-owner">负责人 / 找谁确认</label><input id="work-sop-step-owner" name="confirmationOwner" /></div>
+              <div class="form-field form-field--wide"><label for="work-sop-step-detail">详细说明</label><textarea id="work-sop-step-detail" name="detail" rows="5"></textarea></div>
+              <div class="form-field form-field--wide"><label for="work-sop-step-cautions">注意事项</label><textarea id="work-sop-step-cautions" name="cautions" rows="3"></textarea></div>
+              <div class="form-field form-field--wide"><label for="work-sop-step-errors">常见错误</label><textarea id="work-sop-step-errors" name="commonErrors" rows="3"></textarea></div>
+            </div></div>
+            <div class="form-actions"><button class="secondary-button" type="button" data-close-interview-dialog>取消</button><button class="primary-button" type="submit">保存步骤</button></div>
+          </form>
+        </dialog>
+
+        <dialog class="job-dialog interview-dialog" id="work-lesson-dialog" aria-labelledby="work-lesson-dialog-title">
+          <form class="job-form" id="work-lesson-form">
+            <div class="dialog-heading"><div><p class="section-kicker">WORK LESSON</p><h2 id="work-lesson-dialog-title">添加工作经验</h2><p>记录真实事件和由此总结出的、换一家公司仍然适用的原则。</p></div><button class="dialog-close" type="button" data-close-interview-dialog aria-label="关闭工作经验表单">×</button></div>
+            <div class="interview-dialog-scroll"><div class="form-grid">
+              <div class="form-field"><label for="work-lesson-date">日期</label><input id="work-lesson-date" name="date" type="date" /></div>
+              <div class="form-field"><label for="work-lesson-tags">标签</label><input id="work-lesson-tags" name="tagsText" placeholder="沟通、主管、职责边界" /></div>
+              <div class="form-field form-field--wide"><label for="work-lesson-event">事件 / 背景 <span>必填</span></label><textarea id="work-lesson-event" name="eventBackground" rows="4" required></textarea></div>
+              <div class="form-field form-field--wide"><label for="work-lesson-handling">当时我是怎么处理的</label><textarea id="work-lesson-handling" name="handling" rows="4"></textarea></div>
+              <div class="form-field form-field--wide"><label for="work-lesson-problem">出现了什么问题</label><textarea id="work-lesson-problem" name="problem" rows="3"></textarea></div>
+              <div class="form-field form-field--wide"><label for="work-lesson-better">更好的处理方式</label><textarea id="work-lesson-better" name="betterApproach" rows="4"></textarea></div>
+              <div class="form-field form-field--wide"><label for="work-lesson-principle">最终总结出的原则 <span>必填</span></label><textarea id="work-lesson-principle" name="principle" rows="3" required></textarea></div>
+              <div class="form-field"><label for="work-lesson-practice-count">实践次数</label><input id="work-lesson-practice-count" name="practiceCount" type="number" min="0" step="1" value="0" /></div>
+              <div class="form-field work-lesson-practiced-field"><label><input id="work-lesson-practiced" name="practiced" type="checkbox" /> 已经再次实践</label></div>
+              <div class="form-field form-field--wide"><label for="work-lesson-practice-result">最近一次实践结果</label><textarea id="work-lesson-practice-result" name="latestPracticeResult" rows="3"></textarea></div>
+              <div class="form-field form-field--wide"><label>关联同类经验</label><div class="interview-link-options" id="work-lesson-related-options"></div></div>
+            </div></div>
+            <div class="form-actions"><button class="secondary-button" type="button" data-close-interview-dialog>取消</button><button class="primary-button" type="submit">保存经验</button></div>
+          </form>
+        </dialog>
+
+        <dialog class="job-dialog interview-dialog" id="work-lesson-merge-dialog" aria-labelledby="work-lesson-merge-title">
+          <form class="job-form" id="work-lesson-merge-form">
+            <div class="dialog-heading"><div><p class="section-kicker">MERGE LESSON</p><h2 id="work-lesson-merge-title">合并同类经验</h2><p>采用非破坏合并：原记录会保留并标明去向，两条经验会建立关联。</p></div><button class="dialog-close" type="button" data-close-interview-dialog aria-label="关闭合并表单">×</button></div>
+            <div class="form-grid">
+              <label class="form-field form-field--wide" for="work-lesson-merge-target">合并到哪条经验<select id="work-lesson-merge-target" name="targetId" required></select></label>
+            </div>
+            <div class="form-actions"><button class="secondary-button" type="button" data-close-interview-dialog>取消</button><button class="primary-button" type="submit">确认合并</button></div>
+          </form>
+        </dialog>
+
+        <dialog class="job-dialog interview-dialog" id="interview-experience-dialog" aria-labelledby="interview-experience-title">
+          <form class="job-form" id="interview-experience-form">
+            <div class="dialog-heading"><div><p class="section-kicker">REAL EXPERIENCE</p><h2 id="interview-experience-title">添加真实经历</h2><p>只记录确实发生过的事情，结果不确定时可以如实写“没有统计”。</p></div><button class="dialog-close" type="button" data-close-interview-dialog aria-label="关闭经历表单">×</button></div>
+            <div class="interview-dialog-scroll"><div class="form-grid">
+              <div class="form-field form-field--wide"><label for="interview-exp-title">经历名称 <span>必填</span></label><input id="interview-exp-title" name="title" required /></div>
+              <div class="form-field"><label for="interview-exp-organization">公司 / 学校 / 项目</label><input id="interview-exp-organization" name="organization" /></div>
+              <div class="form-field"><label for="interview-exp-role">当时的角色</label><input id="interview-exp-role" name="role" /></div>
+              <div class="form-field"><label for="interview-exp-career">职业类型</label><select id="interview-exp-career" name="careerDirection"><option>教师方向</option><option>视频剪辑</option><option>运营</option><option>销售</option><option>通用</option></select></div>
+              <div class="form-field"><label for="interview-exp-category">能力 / 案例类型</label><select id="interview-exp-category" name="category"><option>产品迭代</option><option>教学经历</option><option>课堂案例</option><option>学生辅导案例</option><option>家长沟通案例</option><option>教学成果</option><option>剪辑软件使用</option><option>字幕处理</option><option>视频节奏设计</option><option>封面制作</option><option>基础数据分析</option><option>内容优化经验</option><option>客户沟通</option><option>问题解决</option><option>团队协作</option><option>其他</option></select></div>
+              <div class="form-field form-field--wide interview-teacher-fields" id="interview-teacher-fields">
+                <div class="form-grid"><div class="form-field"><label for="interview-exp-teacher-type">教师类型</label><select id="interview-exp-teacher-type" name="teacherType"><option>英语老师</option><option>其他学科老师</option></select></div><div class="form-field"><label for="interview-exp-school-stage">学段</label><select id="interview-exp-school-stage" name="schoolStage"><option>小学</option><option>初中</option></select></div><div class="form-field form-field--wide"><label for="interview-exp-subject">具体学科</label><input id="interview-exp-subject" name="subject" placeholder="英语老师可填英语；其他学科请填写具体科目" /></div></div>
+              </div>
+              <div class="form-field form-field--wide"><label>适用岗位方向 <span>至少选择一个</span></label><div class="interview-role-checks"><label><input type="checkbox" name="targetRoles" value="AI相关" />AI相关</label><label><input type="checkbox" name="targetRoles" value="英语老师" />英语老师</label><label><input type="checkbox" name="targetRoles" value="小学其他学科老师" />小学其他学科</label><label><input type="checkbox" name="targetRoles" value="初中其他学科老师" />初中其他学科</label><label><input type="checkbox" name="targetRoles" value="视频剪辑" />视频剪辑</label><label><input type="checkbox" name="targetRoles" value="销售" />销售</label><label><input type="checkbox" name="targetRoles" value="运营" />运营</label><label><input type="checkbox" name="targetRoles" value="通用" />通用</label></div></div>
+              <div class="form-field form-field--wide"><label for="interview-exp-situation">发生了什么 / 背景 <span>必填</span></label><textarea id="interview-exp-situation" name="situation" rows="4" required></textarea></div>
+              <div class="form-field form-field--wide"><label for="interview-exp-action">我具体做了什么 <span>必填</span></label><textarea id="interview-exp-action" name="action" rows="4" required></textarea></div>
+              <div class="form-field form-field--wide"><label for="interview-exp-result">结果与证据</label><textarea id="interview-exp-result" name="result" rows="3" placeholder="可以写数字、反馈、完成结果；没有统计就如实说明。"></textarea></div>
+              <div class="form-field form-field--wide"><label for="interview-exp-skills">体现的能力</label><input id="interview-exp-skills" name="skills" placeholder="例如：课堂管理、客户沟通、数据复盘" /></div>
+              <div class="form-field form-field--wide"><label for="interview-exp-note">备注</label><textarea id="interview-exp-note" name="note" rows="2"></textarea></div>
+              <details class="form-field form-field--wide workspace-collapsible workspace-collapsible--compact">
+                <summary>面试素材补充信息（可选）</summary>
+                <div class="workspace-collapsible__body form-grid">
+                  <div class="form-field"><label for="interview-exp-material-priority">AI产品案例优先级</label><select id="interview-exp-material-priority" name="materialPriority"><option value="">普通经历</option><option value="primary">优先案例</option><option value="backup">备用案例</option></select></div>
+                  <div class="form-field form-field--wide"><label for="interview-exp-question-types">适合回答的问题类型</label><textarea id="interview-exp-question-types" name="questionTypesText" rows="3" placeholder="每行一种问题，例如：举一个从需求到迭代的例子"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="interview-exp-initial-approach">第一版 / 原来的做法</label><textarea id="interview-exp-initial-approach" name="initialApproach" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="interview-exp-discovered-problem">实际使用后发现的问题</label><textarea id="interview-exp-discovered-problem" name="discoveredProblem" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="interview-exp-key-decision">关键判断 / 修改</label><textarea id="interview-exp-key-decision" name="keyDecision" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="interview-exp-current-status">后来的结果 / 当前状态</label><textarea id="interview-exp-current-status" name="currentStatus" rows="3"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="interview-exp-demonstrates">这个案例能证明什么</label><textarea id="interview-exp-demonstrates" name="demonstratesText" rows="3" placeholder="每行一项"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="interview-exp-truth-boundaries">真实性边界 / 不能乱说什么</label><textarea id="interview-exp-truth-boundaries" name="truthBoundariesText" rows="4" placeholder="每行一项"></textarea></div>
+                  <div class="form-field form-field--wide"><label for="interview-exp-evidence-sources">来源与证据</label><textarea id="interview-exp-evidence-sources" name="evidenceSourcesText" rows="4" placeholder="每行一项"></textarea></div>
+                </div>
+              </details>
+            </div></div>
+            <div class="form-actions"><button class="secondary-button" type="button" data-close-interview-dialog>取消</button><button class="primary-button" type="submit">保存经历</button></div>
+          </form>
+        </dialog>
+
+        
+
+        
+
+        
+
+        <dialog class="job-dialog interview-dialog" id="video-project-dialog" aria-labelledby="video-project-title">
+          <form class="job-form" id="video-project-form">
+            <div class="dialog-heading"><div><p class="section-kicker">VIDEO EDITING PROJECT</p><h2 id="video-project-title">添加视频剪辑项目案例</h2><p>只记录真实完成或参与过的项目，没有数据时可以留空。</p></div><button class="dialog-close" type="button" data-close-interview-dialog aria-label="关闭项目案例表单">×</button></div>
+            <div class="interview-dialog-scroll"><div class="form-grid">
+              <div class="form-field form-field--wide"><label for="video-project-name">项目名称 <span>必填</span></label><input id="video-project-name" name="projectName" required /></div>
+              <div class="form-field"><label for="video-project-type">视频类型</label><input id="video-project-type" name="videoType" placeholder="例如：抖音短视频、课程视频" /></div>
+              <div class="form-field"><label for="video-project-tools">使用工具</label><input id="video-project-tools" name="tools" placeholder="例如：剪映、Premiere、Canva" /></div>
+              <div class="form-field form-field--wide"><label for="video-project-goal">制作目标</label><textarea id="video-project-goal" name="goal" rows="3"></textarea></div>
+              <div class="form-field form-field--wide"><label for="video-project-workflow">制作流程</label><textarea id="video-project-workflow" name="workflow" rows="5" placeholder="素材整理、剪辑、字幕、节奏、封面、发布检查……"></textarea></div>
+              <div class="form-field form-field--wide"><label for="video-project-performance">数据表现</label><textarea id="video-project-performance" name="dataPerformance" rows="3" placeholder="只填写真实播放、互动或完成数据；没有就留空。"></textarea></div>
+              <div class="form-field form-field--wide"><label for="video-project-review">复盘总结</label><textarea id="video-project-review" name="review" rows="4"></textarea></div>
+              <div class="form-field form-field--wide"><label>关联已有模块</label><div class="interview-role-checks"><label><input type="checkbox" name="linkedModules" value="抖音模块" />抖音模块</label><label><input type="checkbox" name="linkedModules" value="公众号模块" />公众号模块</label><label><input type="checkbox" name="linkedModules" value="AI工作台项目经历" />AI工作台项目经历</label></div></div>
+              <div class="form-field form-field--wide"><label for="video-project-experience">关联个人经历</label><select id="video-project-experience" name="experienceId"><option value="">无关联</option></select></div>
+            </div></div>
+            <div class="form-actions"><button class="secondary-button" type="button" data-close-interview-dialog>取消</button><button class="primary-button" type="submit">保存项目案例</button></div>
+          </form>
+        </dialog>
+
+        <dialog class="job-dialog interview-dialog" id="interview-question-dialog" aria-labelledby="interview-question-title">
+          <form class="job-form" id="interview-question-form">
+            <div class="dialog-heading"><div><p class="section-kicker">INTERVIEW QUESTION</p><h2 id="interview-question-title">添加面试问题</h2><p>关联真实经历后，AI优化才有可靠依据。</p></div><button class="dialog-close" type="button" data-close-interview-dialog aria-label="关闭问题表单">×</button></div>
+            <div class="interview-dialog-scroll"><div class="form-grid">
+              <div class="form-field form-field--wide"><label for="interview-question-text">面试问题 <span>必填</span></label><textarea id="interview-question-text" name="question" rows="3" required></textarea></div>
+              <div class="form-field"><label for="interview-question-role">岗位方向</label><select id="interview-question-role" name="targetRole"><option>英语老师</option><option>小学其他学科老师</option><option>初中其他学科老师</option><option>视频剪辑</option><option>销售</option><option>运营</option><option>通用</option></select></div>
+              <div class="form-field"><label for="interview-question-category">问题类型</label><select id="interview-question-category" name="category"><option>自我介绍</option><option>行为面试</option><option>岗位能力</option><option>困难与冲突</option><option>职业规划</option><option>其他</option></select></div>
+              <div class="form-field form-field--wide"><label>关联真实经历</label><div class="interview-link-options" id="interview-question-experience-options"></div></div>
+              <div class="form-field form-field--wide"><label>关联视频剪辑项目案例</label><div class="interview-link-options" id="interview-question-project-options"></div></div>
+              <div class="form-field form-field--wide"><label for="interview-question-draft">我的原始回答</label><textarea id="interview-question-draft" name="answerDraft" rows="7"></textarea></div>
+              <div class="form-field form-field--wide"><label for="interview-question-note">备注</label><textarea id="interview-question-note" name="note" rows="2"></textarea></div>
+            </div></div>
+            <div class="form-actions"><button class="secondary-button" type="button" data-close-interview-dialog>取消</button><button class="primary-button" type="submit">保存问题</button></div>
+          </form>
+        </dialog>
+
+        <dialog class="job-dialog interview-dialog" id="star-case-dialog" aria-labelledby="star-case-title">
+          <form class="job-form" id="star-case-form">
+            <div class="dialog-heading"><div><p class="section-kicker">STAR CASE</p><h2 id="star-case-title">添加STAR案例</h2><p>案例必须来自经历库中的真实记录。</p></div><button class="dialog-close" type="button" data-close-interview-dialog aria-label="关闭STAR表单">×</button></div>
+            <div class="interview-dialog-scroll"><div class="form-grid">
+              <div class="form-field form-field--wide"><label for="star-case-name">案例名称 <span>必填</span></label><input id="star-case-name" name="title" required /></div>
+              <div class="form-field"><label for="star-case-experience">来源经历 <span>必填</span></label><select id="star-case-experience" name="experienceId" required></select></div>
+              <div class="form-field"><label for="star-case-role">适用岗位方向</label><select id="star-case-role" name="targetRole"><option>英语老师</option><option>小学其他学科老师</option><option>初中其他学科老师</option><option>视频剪辑</option><option>销售</option><option>运营</option><option>通用</option></select></div>
+              <div class="form-field form-field--wide"><label for="star-case-situation">S · 情境</label><textarea id="star-case-situation" name="situation" rows="3"></textarea></div>
+              <div class="form-field form-field--wide"><label for="star-case-task">T · 任务</label><textarea id="star-case-task" name="task" rows="3"></textarea></div>
+              <div class="form-field form-field--wide"><label for="star-case-action">A · 行动</label><textarea id="star-case-action" name="action" rows="4"></textarea></div>
+              <div class="form-field form-field--wide"><label for="star-case-result">R · 结果</label><textarea id="star-case-result" name="result" rows="3"></textarea></div>
+            </div></div>
+            <div class="form-actions"><button class="secondary-button" type="button" data-close-interview-dialog>取消</button><button class="primary-button" type="submit">保存STAR案例</button></div>
+          </form>
+        </dialog>
+
+        <dialog class="job-dialog interview-dialog" id="interview-review-dialog" aria-labelledby="interview-review-title">
+          <form class="job-form" id="interview-review-form">
+            <div class="dialog-heading"><div><p class="section-kicker">INTERVIEW REVIEW</p><h2 id="interview-review-title">新增面试复盘</h2><p>只记录本次真实发生的内容和下一步行动。</p></div><button class="dialog-close" type="button" data-close-interview-dialog aria-label="关闭复盘表单">×</button></div>
+            <div class="interview-dialog-scroll"><div class="form-grid">
+              <div class="form-field"><label for="interview-review-date">面试日期</label><input id="interview-review-date" name="date" type="date" /></div>
+              <div class="form-field"><label for="interview-review-company">公司 / 机构</label><input id="interview-review-company" name="company" /></div>
+              <div class="form-field"><label for="interview-review-position">岗位名称 <span>必填</span></label><input id="interview-review-position" name="position" required /></div>
+              <div class="form-field"><label for="interview-review-role">岗位方向</label><select id="interview-review-role" name="targetRole"><option>英语老师</option><option>小学其他学科老师</option><option>初中其他学科老师</option><option>视频剪辑</option><option>销售</option><option>运营</option><option>通用</option></select></div>
+              <div class="form-field"><label for="interview-review-rating">自我评分</label><select id="interview-review-rating" name="rating"><option value="">暂不评分</option><option value="1">1分</option><option value="2">2分</option><option value="3">3分</option><option value="4">4分</option><option value="5">5分</option></select></div>
+              <div class="form-field form-field--wide"><label for="interview-review-questions">实际被问到的问题</label><textarea id="interview-review-questions" name="questions" rows="5"></textarea></div>
+              <div class="form-field form-field--wide"><label for="interview-review-good">做得比较好的地方</label><textarea id="interview-review-good" name="good" rows="3"></textarea></div>
+              <div class="form-field form-field--wide"><label for="interview-review-improve">卡住或需要改进的地方</label><textarea id="interview-review-improve" name="improve" rows="3"></textarea></div>
+              <div class="form-field form-field--wide"><label for="interview-review-action">下一次行动</label><textarea id="interview-review-action" name="nextAction" rows="3"></textarea></div>
+            </div></div>
+            <div class="form-actions"><button class="secondary-button" type="button" data-close-interview-dialog>取消</button><button class="primary-button" type="submit">保存复盘</button></div>
+          </form>
+        </dialog>
+
+        <section
+          class="module-preview"
+          id="module-preview"
+          aria-live="polite"
+          aria-labelledby="preview-title"
+        >
+          <div class="preview-index" id="preview-index">—</div>
+          <div class="preview-copy">
+            <p class="section-kicker">SELECTED AREA</p>
+            <h2 id="preview-title">请选择一个工作区域</h2>
+            <p id="preview-description">点击上方“找工作”管理岗位与简历，或进入“工作与面试”整理经历。</p>
+          </div>
+          <div class="preview-items" id="preview-items" aria-label="模块包含内容">
+            <span>岗位与简历</span><span>经历与面试</span>
+          </div>
+        </section>
+
+        <dialog class="job-dialog" id="job-dialog" aria-labelledby="job-form-title">
+          <form class="job-form" id="job-form">
+            <div class="dialog-heading">
+              <div>
+                <p class="section-kicker">JOB RECORD</p>
+                <h2 id="job-form-title">新增岗位</h2>
+                <p>带“必填”的内容需要填写，其他内容可以之后再补充。</p>
+              </div>
+              <button
+                class="dialog-close"
+                id="close-job-dialog"
+                type="button"
+                aria-label="关闭岗位表单"
+              >
+                ×
+              </button>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="company">公司名称 <span>可后补</span></label>
+                <input id="company" name="company" type="text" placeholder="截图未显示时可暂时留空" />
+              </div>
+
+              <div class="form-field">
+                <label for="position">岗位名称 <span>必填</span></label>
+                <input id="position" name="position" type="text" required />
+              </div>
+
+              <div class="form-field">
+                <label for="salary">薪资</label>
+                <input id="salary" name="salary" type="text" placeholder="例如：15K–20K" />
+              </div>
+
+              <div class="form-field">
+                <label for="salary-type">薪资类型</label>
+                <select id="salary-type" name="salaryType">
+                  <option value="">未填写</option><option value="时薪">时薪</option><option value="月薪">月薪</option><option value="年薪">年薪</option><option value="面议">面议</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="country-region">国家 / 地区</label>
+                <input id="country-region" name="countryRegion" type="text" placeholder="例如：中国 / 日本 / 澳大利亚" />
+              </div>
+
+              <div class="form-field">
+                <label for="city">城市</label>
+                <input id="city" name="city" type="text" placeholder="例如：上海 / 东京 / Sydney" />
+              </div>
+
+              <div class="form-field form-field--wide">
+                <label for="location">地点补充</label>
+                <input id="location" name="location" type="text" placeholder="例如：具体区域、通勤或搬家要求；旧岗位地点也会保留在这里" />
+              </div>
+
+              <div class="form-field">
+                <label for="platform">招聘平台</label>
+                <input
+                  id="platform"
+                  name="platform"
+                  type="text"
+                  list="platform-options"
+                  placeholder="例如：BOSS直聘"
+                />
+                <datalist id="platform-options">
+                  <option value="BOSS直聘"></option>
+                  <option value="猎聘"></option>
+                  <option value="智联招聘"></option>
+                  <option value="LinkedIn"></option>
+                  <option value="Indeed"></option>
+                  <option value="SEEK"></option>
+                  <option value="前程无忧"></option>
+                  <option value="拉勾"></option>
+                  <option value="脉脉"></option>
+                  <option value="公司官网"></option>
+                  <option value="内推"></option>
+                </datalist>
+              </div>
+
+              <div class="form-field">
+                <label for="job-url">招聘页面链接</label>
+                <input id="job-url" name="jobUrl" type="url" placeholder="https://..." />
+              </div>
+
+              <div class="form-field">
+                <label for="work-hours">工作时间</label>
+                <input id="work-hours" name="workHours" type="text" placeholder="例如：9:00–18:00" />
+              </div>
+
+              <div class="form-field">
+                <label for="rest-schedule">休息安排</label>
+                <input id="rest-schedule" name="restSchedule" type="text" placeholder="双休 / 单休 / 排班 / 大小周" />
+              </div>
+
+              <div class="form-field">
+                <label for="employment-type">工作性质</label>
+                <select id="employment-type" name="employmentType"><option value="">未填写</option><option value="全职">全职</option><option value="兼职">兼职</option><option value="实习">实习</option><option value="合同工">合同工</option><option value="其他">其他</option></select>
+              </div>
+
+              <div class="form-field">
+                <label for="work-mode">办公方式</label>
+                <select id="work-mode" name="workMode"><option value="">未填写</option><option value="线下">线下</option><option value="远程">远程</option><option value="混合办公">混合办公</option><option value="未说明">未说明</option></select>
+              </div>
+
+              <div class="form-field form-field--wide job-form-subheading"><strong>岗位分类与初筛</strong><span>“求职方向”和“为什么投/不投”分开保存，以后可以分别统计。</span></div>
+              <div class="form-field"><label for="job-direction">求职方向 <span>必填</span></label><input id="job-direction" name="jobDirection" list="job-direction-options" required placeholder="选择或输入新方向" /><datalist id="job-direction-options"><option value="英语教育"></option><option value="外贸"></option><option value="国际业务"></option><option value="海外销售"></option><option value="AI相关"></option><option value="其他"></option></datalist></div>
+              <div class="form-field"><label for="job-screening-result">初筛结果</label><select id="job-screening-result" name="screeningResult"><option value="待筛选">待筛选</option><option value="优先投">优先投</option><option value="可以投">可以投</option><option value="暂时保留">暂时保留</option><option value="当前能力不匹配">当前能力不匹配</option><option value="不考虑">不考虑</option></select></div>
+              <div class="form-field"><label for="job-current-match-level">当前匹配程度</label><select id="job-current-match-level" name="currentMatchLevel"><option value="未评估">未评估</option><option value="已满足">已满足</option><option value="基本匹配">基本匹配</option><option value="有差距但值得尝试">有差距但值得尝试</option><option value="明显缺少关键条件">明显缺少关键条件</option><option value="信息不足，需要进一步确认">信息不足，需要进一步确认</option></select></div>
+              <div class="form-field form-field--wide"><label for="job-screening-strengths">主要优势（可选）</label><textarea id="job-screening-strengths" name="screeningStrengths" rows="2" placeholder="只记录有JD或个人档案依据的优势"></textarea></div>
+              <div class="form-field form-field--wide"><label for="job-screening-gaps">主要缺口（可选）</label><textarea id="job-screening-gaps" name="screeningGaps" rows="2" placeholder="例如：英语口语、2年外贸经验"></textarea></div>
+              <div class="form-field form-field--wide"><label for="job-screening-note">初筛补充说明</label><textarea id="job-screening-note" name="screeningNote" rows="2" placeholder="例如：能力提升后可以重新考虑"></textarea></div>
+              <div class="form-field form-field--wide job-rejection-details" id="job-rejection-details" hidden>
+                <label for="job-rejection-type">暂时不投类型</label>
+                <select id="job-rejection-type" name="rejectionType"><option value="">请选择</option><option value="当前不匹配">当前不匹配（能力提升后可重新筛选）</option><option value="岗位本身不考虑">岗位本身不考虑（进入淘汰库）</option></select>
+                <span class="job-rejection-label">淘汰原因（可多选）</span>
+                <div class="job-rejection-reason-grid">
+                  <label><input type="checkbox" name="rejectionReasons" value="英语能力暂时达不到" />英语能力暂时达不到</label><label><input type="checkbox" name="rejectionReasons" value="专业不符合" />专业不符合</label><label><input type="checkbox" name="rejectionReasons" value="工作经验不够" />工作经验不够</label><label><input type="checkbox" name="rejectionReasons" value="学历不符合" />学历不符合</label><label><input type="checkbox" name="rejectionReasons" value="技术能力不足" />技术能力不足</label><label><input type="checkbox" name="rejectionReasons" value="薪资太低" />薪资太低</label><label><input type="checkbox" name="rejectionReasons" value="工作时间太差" />工作时间太差</label><label><input type="checkbox" name="rejectionReasons" value="单休 / 休息太少" />单休 / 休息太少</label><label><input type="checkbox" name="rejectionReasons" value="地点不合适" />地点不合适</label><label><input type="checkbox" name="rejectionReasons" value="工作内容不喜欢" />工作内容不喜欢</label><label><input type="checkbox" name="rejectionReasons" value="与长期职业方向不符" />与长期职业方向不符</label><label><input type="checkbox" name="rejectionReasons" value="公司/岗位风险较高" />公司/岗位风险较高</label><label><input type="checkbox" name="rejectionReasons" value="无底薪 / 收入不稳定" />无底薪 / 收入不稳定</label><label><input type="checkbox" name="rejectionReasons" value="招聘信息过于模糊" />招聘信息过于模糊</label><label><input type="checkbox" name="rejectionReasons" value="已经投递过" />已经投递过</label><label><input type="checkbox" name="rejectionReasons" value="重复岗位" />重复岗位</label><label><input type="checkbox" name="rejectionReasons" value="其他" />其他</label>
+                </div>
+                <label for="job-other-rejection-reason">其他原因补充</label><input id="job-other-rejection-reason" name="otherRejectionReason" type="text" />
+              </div>
+
+              <div class="form-field">
+                <label for="status">当前状态 <span>必填</span></label>
+                <select id="status" name="status" required>
+                  <option value="发现岗位">发现岗位</option>
+                  <option value="准备投递">准备投递</option>
+                  <option value="已投递">已投递</option>
+                  <option value="HR沟通">HR沟通</option>
+                  <option value="待面试">待面试</option>
+                  <option value="已面试">已面试</option>
+                  <option value="Offer">Offer</option>
+                  <option value="已入职">已入职</option>
+                  <option value="主动放弃">主动放弃</option>
+                  <option value="被拒绝">被拒绝</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="application-date">投递日期</label>
+                <input id="application-date" name="applicationDate" type="date" />
+              </div>
+
+              <div class="form-field">
+                <label for="interview-date">面试日期 / 时间</label>
+                <input
+                  id="interview-date"
+                  name="interviewDateTime"
+                  type="datetime-local"
+                />
+              </div>
+
+              <div class="form-field form-field--wide">
+                <label for="jd">JD / 招聘要求</label>
+                <textarea
+                  id="jd"
+                  name="jd"
+                  rows="6"
+                  placeholder="可以把招聘页面中的职位描述粘贴到这里"
+                ></textarea>
+              </div>
+
+              <div class="form-field form-field--wide"><label for="job-responsibilities">工作职责</label><textarea id="job-responsibilities" name="responsibilities" rows="5"></textarea></div>
+              <div class="form-field form-field--wide"><label for="job-requirements">任职要求</label><textarea id="job-requirements" name="requirements" rows="5"></textarea></div>
+              <div class="form-field"><label for="education-requirement">学历要求</label><input id="education-requirement" name="educationRequirement" type="text" /></div>
+              <div class="form-field"><label for="experience-requirement">工作经验要求</label><input id="experience-requirement" name="experienceRequirement" type="text" /></div>
+              <div class="form-field"><label for="language-requirement">语言要求</label><input id="language-requirement" name="languageRequirement" type="text" /></div>
+              <div class="form-field"><label for="professional-requirement">专业要求</label><input id="professional-requirement" name="professionalRequirement" type="text" /></div>
+              <div class="form-field form-field--wide"><label for="skills-requirement">技能要求</label><textarea id="skills-requirement" name="skillsRequirement" rows="3"></textarea></div>
+              <div class="form-field"><label for="job-industry">行业</label><input id="job-industry" name="industry" type="text" /></div>
+              <div class="form-field"><label for="job-category">岗位类别</label><input id="job-category" name="jobCategory" type="text" /></div>
+              <div class="form-field"><label for="benefits">福利待遇</label><textarea id="benefits" name="benefits" rows="3"></textarea></div>
+              <div class="form-field form-field--wide"><label for="job-other-jd-info">其他重要 JD 信息</label><textarea id="job-other-jd-info" name="otherJdInfo" rows="3"></textarea></div>
+
+              <div class="form-field form-field--wide job-form-subheading">
+                <strong>国外岗位信息</strong><span>JD 没有明确说明时，请保留“未说明”，不要猜测。</span>
+              </div>
+              <div class="form-field"><label for="local-work-rights">是否要求当地工作权</label><select id="local-work-rights" name="localWorkRights"><option value="未说明">未说明</option><option value="是">是</option><option value="否">否</option><option value="不适用">不适用</option></select></div>
+              <div class="form-field"><label for="visa-requirement">签证要求</label><select id="visa-requirement" name="visaRequirement"><option value="未说明">未说明</option><option value="有明确要求">有明确要求</option><option value="无明确要求">无明确要求</option><option value="不适用">不适用</option></select></div>
+              <div class="form-field"><label for="visa-sponsorship">Visa Sponsorship</label><select id="visa-sponsorship" name="visaSponsorship"><option value="未说明">未说明</option><option value="提供">提供</option><option value="不提供">不提供</option><option value="可能提供">可能提供</option><option value="不适用">不适用</option></select></div>
+              <div class="form-field"><label for="overseas-applicants">是否接受海外申请者</label><select id="overseas-applicants" name="overseasApplicants"><option value="未说明">未说明</option><option value="是">是</option><option value="否">否</option><option value="不适用">不适用</option></select></div>
+              <div class="form-field"><label for="local-residence">是否要求当地居住</label><select id="local-residence" name="localResidence"><option value="未说明">未说明</option><option value="是">是</option><option value="否">否</option><option value="不适用">不适用</option></select></div>
+
+              <div class="form-field form-field--wide">
+                <label for="notes">备注</label>
+                <textarea
+                  id="notes"
+                  name="notes"
+                  rows="4"
+                  placeholder="例如：联系人、准备重点、后续安排"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="secondary-button" id="cancel-job-form" type="button">
+                取消
+              </button>
+              <button class="primary-button" type="submit">保存岗位</button>
+            </div>
+          </form>
+        </dialog>
+
+        <dialog class="job-dialog job-import-dialog" id="job-import-dialog" aria-labelledby="job-import-title">
+          <form class="job-form" id="job-import-form" novalidate>
+            <div class="dialog-heading">
+              <div>
+                <p class="section-kicker">UNIVERSAL JD IMPORT</p>
+                <h2 id="job-import-title">导入招聘信息 / JD</h2>
+                <p>可以粘贴任意招聘平台的文字。工作台只在本地识别明确写出的信息，不会上传或猜测。</p>
+              </div>
+              <button class="dialog-close" id="close-job-import-dialog" type="button" aria-label="关闭招聘信息导入">×</button>
+            </div>
+            <div class="job-import-mode-switch" role="group" aria-label="JD导入方式">
+              <button class="is-active" id="job-import-mode-text" type="button">粘贴文字</button>
+              <button id="job-import-mode-screenshot" type="button">上传JD截图</button>
+            </div>
+            <section class="job-screenshot-import" id="job-screenshot-import" tabindex="0" aria-label="JD截图拖拽、粘贴和文件选择上传区" hidden>
+              <section class="job-screenshot-workflow" aria-label="JD截图处理进度">
+                <ol class="job-screenshot-workflow-steps" id="job-screenshot-workflow-steps">
+                  <li data-job-workflow-step="1">1 导入截图</li>
+                  <li data-job-workflow-step="2">2 岗位分组</li>
+                  <li data-job-workflow-step="3">3 异常处理</li>
+                  <li data-job-workflow-step="4">4 JD结构化</li>
+                  <li data-job-workflow-step="5">5 初筛</li>
+                  <li data-job-workflow-step="6">6 岗位池</li>
+                  <li data-job-workflow-step="7">7 岗位比较</li>
+                </ol>
+                <div class="job-screenshot-current-action" id="job-screenshot-current-action">
+                  <span>当前需要做什么</span>
+                  <strong id="job-screenshot-current-step">当前步骤：导入截图</strong>
+                  <p id="job-screenshot-next-action">下一步：选择本轮求职方向，并添加1～10张截图。</p>
+                  <div class="job-screenshot-guided-actions">
+                    <button class="secondary-button" id="retry-job-screenshot-problems" type="button" hidden>一键重新识别异常岗位</button>
+                    <button class="secondary-button" id="inspect-job-screenshot-problems" type="button" hidden>逐个检查异常岗位</button>
+                    <button class="primary-button" id="confirm-job-screenshot-groups" type="button" hidden>确认分组，进入JD整理</button>
+                    <button class="primary-button" id="complete-job-screenshot-batch" type="button" hidden>初筛完成，加入岗位池</button>
+                  </div>
+                </div>
+              </section>
+              <div class="job-screenshot-heading">
+                <div>
+                  <strong>添加 1～10 张同一求职方向截图</strong>
+                  <p>同一批截图可以包含多个公司和岗位；系统会逐图识别、先分岗位，再分别整理。</p>
+                </div>
+                <button class="secondary-button" id="choose-job-screenshots" type="button">选择截图</button>
+                <input id="job-screenshot-files" type="file" accept="image/png,image/jpeg,image/webp,image/bmp,.png,.jpg,.jpeg,.webp,.bmp" multiple hidden />
+              </div>
+              <div class="job-screenshot-batch-direction">
+                <label for="job-screenshot-batch-direction">本轮求职方向 <span>必填</span></label>
+                <input id="job-screenshot-batch-direction" type="text" list="job-direction-options" placeholder="例如：外贸 / 国际业务 / 海外销售" />
+              </div>
+              <div class="job-screenshot-drop-message" id="job-screenshot-drop-message" aria-live="polite">
+                <strong id="job-screenshot-drop-title">把JD截图直接拖到这里</strong>
+                <span>也可以先复制截图，再在这个区域按 Ctrl+V</span>
+              </div>
+              <div class="job-screenshot-files" id="job-screenshot-file-list">尚未选择截图。</div>
+              <div class="job-screenshot-actions">
+                <button class="primary-button" id="recognize-job-screenshots" type="button" disabled>批量识别并整理</button>
+                <span id="job-screenshot-progress" role="status" aria-live="polite">等待选择图片。</span>
+              </div>
+              <div class="job-screenshot-warning" id="job-screenshot-warning" role="alert" hidden></div>
+              <div class="job-duplicate-alert" id="job-screenshot-duplicate-alert" role="alert" hidden>
+                <strong id="job-screenshot-duplicate-title"></strong>
+                <p id="job-screenshot-duplicate-detail"></p>
+                <div class="job-duplicate-actions">
+                  <button class="secondary-button" id="view-duplicate-job" type="button">查看之前的岗位记录</button>
+                  <button class="primary-button" id="continue-duplicate-import" type="button">仍然重新识别</button>
+                </div>
+              </div>
+              <div class="job-screenshot-same-job" id="job-screenshot-same-job" hidden>
+                <label><input id="job-screenshot-same-job-confirm" type="checkbox" /> 我确认这些截图属于同一个岗位</label>
+              </div>
+              <section class="job-screenshot-batch-workspace" id="job-screenshot-batch-workspace" hidden>
+                <div class="job-screenshot-batch-summary" id="job-screenshot-batch-summary"></div>
+                <details><summary>AI跨截图分组与字段整理</summary><p>复制本批全部截图的OCR给ChatGPT，导入后自动应用岗位分组；只需检查不确定项。</p><button type="button" id="job-group-ai-copy">生成并复制分组提示词</button><textarea id="job-group-ai-json" rows="6" placeholder="粘贴AI返回的JSON"></textarea><button type="button" id="job-group-ai-import">应用AI分组</button><p id="job-group-ai-feedback" role="status"></p></details>
+                <div class="job-screenshot-group-list" id="job-screenshot-group-list"></div>
+                <div class="job-screenshot-batch-actions">
+                  <button class="secondary-button" id="regroup-job-screenshot-batch" type="button">重新分组</button>
+                  <button class="secondary-button" id="rerun-job-screenshot-batch" type="button">重新识别本批</button>
+                </div>
+                <div class="job-tool-actions">
+                  <section id="job-group-send-preview" hidden aria-label="AI分组发送确认">
+                    <p>将把本批OCR文字和求职方向发送给已配置的AI服务，不发送原始截图。请检查是否包含不希望发送的信息；取消不会清空识别结果。</p>
+                    <details><summary>查看完整待发送提示词</summary><textarea id="job-group-send-prompt" rows="12" readonly aria-label="完整待发送提示词" style="width:100%;box-sizing:border-box;white-space:pre-wrap"></textarea></details>
+                    <button type="button" class="primary-button" id="job-group-send-confirm">确认发送给AI</button>
+                    <button type="button" class="secondary-button" id="job-group-send-cancel">暂不发送</button>
+                  </section>
+                  <button type="button" class="secondary-button" id="job-ai-group">AI重新分组与整理</button>
+                  <button type="button" class="secondary-button" id="job-ai-structure">AI逐岗位整理 / 重试失败</button>
+                  <button type="button" class="primary-button" id="job-ai-screen">AI初筛未确认岗位 / 重试失败</button>
+                  <p id="job-ai-status" role="status" aria-live="polite">模型未连接；可使用降级模式。连接后会发送当前JD与求职档案给已配置的模型服务。</p>
+                </div>
+                <section class="job-batch-comparison" id="job-batch-comparison" hidden>
+                  <h3>本轮岗位比较</h3>
+                  <p>先看投递顺序、优势和缺口，详细依据可按需展开。模型未连接或失败时不生成、也不猜测排名。</p>
+                  <button type="button" class="primary-button" id="job-ai-compare">AI比较本批岗位</button>
+                  <details><summary>降级模式：通过 ChatGPT 导入比较结果</summary>
+                  <div class="job-tool-actions">
+                    <button class="secondary-button" id="copy-job-batch-comparison-prompt" type="button">复制比较提示词</button>
+                  </div>
+                  <textarea id="job-batch-comparison-prompt" rows="12" readonly></textarea>
+                  <label for="job-batch-comparison-json">粘贴 ChatGPT 返回的比较 JSON</label>
+                  <textarea id="job-batch-comparison-json" rows="10" spellcheck="false"></textarea>
+                  <button class="primary-button" id="import-job-batch-comparison" type="button">导入本轮比较结果</button>
+                  </details>
+                  <div id="job-batch-comparison-result"></div>
+                </section>
+              </section>
+            </section>
+            <div class="form-grid" id="job-import-editor-grid">
+              <div id="job-summary-confirm" class="form-field form-field--wide" hidden></div>
+              <details id="job-import-fields-details" class="form-field form-field--wide" open><summary>修改详细字段 / 核对OCR</summary><div class="form-grid">
+              <details class="form-field form-field--wide job-import-raw-details" id="job-import-raw-details" open>
+                <summary>完整招聘信息 / OCR原文</summary>
+                <textarea id="job-import-raw" name="rawJd" rows="15" required placeholder="从 BOSS直聘、LinkedIn、Indeed、SEEK、公司官网等复制后，完整粘贴到这里。"></textarea>
+              </details>
+              <div class="form-field form-field--wide job-import-parse-row">
+                <button class="secondary-button" id="parse-job-import" type="button">本地整理明确字段</button>
+                <span>识别后请快速检查公司和岗位名称，再保存。</span>
+              </div>
+              <div class="form-field form-field--wide job-form-subheading"><strong>基本信息</strong><span>当前岗位独立保存，不与本批其他岗位共享字段。</span></div>
+              <div class="form-field"><label for="job-import-company">公司名称 <span>可后补</span></label><input id="job-import-company" name="company" type="text" placeholder="未显示时保留“公司待确认”" /></div>
+              <div class="form-field"><label for="job-import-position">岗位名称 <span>必填</span></label><input id="job-import-position" name="position" type="text" required /></div>
+              <div class="form-field"><label for="job-import-country">国家 / 地区</label><input id="job-import-country" name="countryRegion" type="text" /></div>
+              <div class="form-field"><label for="job-import-city">城市</label><input id="job-import-city" name="city" type="text" /></div>
+              <div class="form-field"><label for="job-import-platform">招聘平台</label><input id="job-import-platform" name="platform" type="text" placeholder="例如：LinkedIn" /></div>
+              <div class="form-field"><label for="job-import-url">招聘页面链接</label><input id="job-import-url" name="jobUrl" type="url" placeholder="https://..." /></div>
+              <div class="form-field"><label for="job-import-salary">薪资</label><input id="job-import-salary" name="salary" type="text" /></div>
+              <div class="form-field"><label for="job-import-salary-type">薪资类型</label><select id="job-import-salary-type" name="salaryType"><option value="">未提供</option><option value="时薪">时薪</option><option value="月薪">月薪</option><option value="年薪">年薪</option><option value="面议">面议</option></select></div>
+              <div class="form-field form-field--wide job-form-subheading"><strong>工作条件</strong><span>工作时间、休息、工作性质和办公方式。</span></div>
+              <div class="form-field"><label for="job-import-work-hours">工作时间</label><input id="job-import-work-hours" name="workHours" type="text" /></div>
+              <div class="form-field"><label for="job-import-rest-schedule">休息安排</label><input id="job-import-rest-schedule" name="restSchedule" type="text" /></div>
+              <div class="form-field"><label for="job-import-employment-type">工作性质</label><select id="job-import-employment-type" name="employmentType"><option value="">未提供</option><option value="全职">全职</option><option value="兼职">兼职</option><option value="实习">实习</option><option value="合同工">合同工</option></select></div>
+              <div class="form-field"><label for="job-import-work-mode">办公方式</label><select id="job-import-work-mode" name="workMode"><option value="未说明">未提供</option><option value="线下">线下</option><option value="远程">远程</option><option value="混合办公">混合办公</option></select></div>
+              <div class="form-field form-field--wide"><label for="job-import-benefits">福利待遇</label><textarea id="job-import-benefits" name="benefits" rows="3"></textarea></div>
+              <div class="form-field form-field--wide job-form-subheading"><strong>招聘门槛</strong><span>只填写截图明确提供的信息。</span></div>
+              <div class="form-field"><label for="job-import-education">学历要求</label><input id="job-import-education" name="educationRequirement" type="text" /></div>
+              <div class="form-field"><label for="job-import-experience">经验要求</label><input id="job-import-experience" name="experienceRequirement" type="text" /></div>
+              <div class="form-field"><label for="job-import-language">语言要求</label><input id="job-import-language" name="languageRequirement" type="text" /></div>
+              <div class="form-field"><label for="job-import-professional">专业要求</label><input id="job-import-professional" name="professionalRequirement" type="text" /></div>
+              <div class="form-field form-field--wide"><label for="job-import-skills">技能要求</label><textarea id="job-import-skills" name="skillsRequirement" rows="3"></textarea></div>
+              <div class="form-field"><label for="job-import-industry">行业</label><input id="job-import-industry" name="industry" type="text" /></div>
+              <div class="form-field"><label for="job-import-category">岗位类别</label><input id="job-import-category" name="jobCategory" type="text" /></div>
+              <div class="form-field form-field--wide job-form-subheading"><strong>JD核心内容</strong><span>职责、要求等长文本单独占整行。</span></div>
+              <div class="form-field form-field--wide"><label for="job-import-responsibilities">岗位职责</label><textarea id="job-import-responsibilities" name="responsibilities" rows="6"></textarea></div>
+              <div class="form-field form-field--wide"><label for="job-import-requirements">任职要求</label><textarea id="job-import-requirements" name="requirements" rows="6"></textarea></div>
+              <div class="form-field form-field--wide"><label for="job-import-other-info">其他重要 JD 信息</label><textarea id="job-import-other-info" name="otherJdInfo" rows="4"></textarea></div>
+              <div class="form-field form-field--wide job-form-subheading"><strong>岗位方向与初筛</strong><span>识别整理只负责JD事实；方向和初筛结果需要你最终确认。</span></div>
+              <div class="form-field"><label for="job-import-direction">求职方向 <span>必填</span></label><input id="job-import-direction" name="jobDirection" list="job-direction-options" required placeholder="选择或输入新方向" /></div>
+              <div class="form-field"><label for="job-import-education-stage">教育学段（教育岗位）</label><select id="job-import-education-stage" name="educationStage"><option value="">不适用</option><option value="小学">小学</option><option value="初中">初中</option><option value="待确认">待确认</option></select></div>
+              <div class="form-field"><label for="job-import-subject">教学科目（教育岗位）</label><select id="job-import-subject" name="subject"><option value="">不适用</option><option value="英语">英语</option><option value="物理">物理</option><option value="其他">其他</option><option value="待确认">待确认</option></select></div>
+              <div class="form-field"><label for="job-import-screening-result">初筛结果</label><select id="job-import-screening-result" name="screeningResult"><option value="待筛选">待筛选</option><option value="优先投">优先投</option><option value="可以投">可以投</option><option value="暂时保留">暂时保留</option><option value="当前能力不匹配">当前能力不匹配</option><option value="不考虑">不考虑</option></select></div>
+              <div class="form-field"><label for="job-import-current-match-level">当前匹配程度</label><select id="job-import-current-match-level" name="currentMatchLevel"><option value="未评估">未评估</option><option value="已满足">已满足</option><option value="基本匹配">基本匹配</option><option value="有差距但值得尝试">有差距但值得尝试</option><option value="明显缺少关键条件">明显缺少关键条件</option><option value="信息不足，需要进一步确认">信息不足，需要进一步确认</option></select></div>
+              <div class="form-field form-field--wide"><label for="job-import-screening-strengths">主要优势（可选）</label><textarea id="job-import-screening-strengths" name="screeningStrengths" rows="2"></textarea></div>
+              <div class="form-field form-field--wide"><label for="job-import-screening-gaps">主要缺口（可选）</label><textarea id="job-import-screening-gaps" name="screeningGaps" rows="2"></textarea></div>
+              <div class="form-field form-field--wide"><label for="job-import-screening-note">初筛补充说明</label><textarea id="job-import-screening-note" name="screeningNote" rows="2"></textarea></div>
+              <div class="form-field form-field--wide job-rejection-details" id="job-import-rejection-details" hidden>
+                <label for="job-import-rejection-type">暂时不投类型</label><select id="job-import-rejection-type" name="rejectionType"><option value="">请选择</option><option value="当前不匹配">当前不匹配（以后可重新筛选）</option><option value="岗位本身不考虑">岗位本身不考虑（进入淘汰库）</option></select>
+                <span class="job-rejection-label">淘汰原因（可多选）</span><div class="job-rejection-reason-grid">
+                  <label><input type="checkbox" name="rejectionReasons" value="英语能力暂时达不到" data-import-rejection-reason />英语能力暂时达不到</label><label><input type="checkbox" name="rejectionReasons" value="专业不符合" data-import-rejection-reason />专业不符合</label><label><input type="checkbox" name="rejectionReasons" value="工作经验不够" data-import-rejection-reason />工作经验不够</label><label><input type="checkbox" name="rejectionReasons" value="学历不符合" data-import-rejection-reason />学历不符合</label><label><input type="checkbox" name="rejectionReasons" value="技术能力不足" data-import-rejection-reason />技术能力不足</label><label><input type="checkbox" name="rejectionReasons" value="薪资太低" data-import-rejection-reason />薪资太低</label><label><input type="checkbox" name="rejectionReasons" value="工作时间太差" data-import-rejection-reason />工作时间太差</label><label><input type="checkbox" name="rejectionReasons" value="单休 / 休息太少" data-import-rejection-reason />单休 / 休息太少</label><label><input type="checkbox" name="rejectionReasons" value="地点不合适" data-import-rejection-reason />地点不合适</label><label><input type="checkbox" name="rejectionReasons" value="工作内容不喜欢" data-import-rejection-reason />工作内容不喜欢</label><label><input type="checkbox" name="rejectionReasons" value="与长期职业方向不符" data-import-rejection-reason />与长期职业方向不符</label><label><input type="checkbox" name="rejectionReasons" value="公司/岗位风险较高" data-import-rejection-reason />公司/岗位风险较高</label><label><input type="checkbox" name="rejectionReasons" value="无底薪 / 收入不稳定" data-import-rejection-reason />无底薪 / 收入不稳定</label><label><input type="checkbox" name="rejectionReasons" value="招聘信息过于模糊" data-import-rejection-reason />招聘信息过于模糊</label><label><input type="checkbox" name="rejectionReasons" value="已经投递过" data-import-rejection-reason />已经投递过</label><label><input type="checkbox" name="rejectionReasons" value="重复岗位" data-import-rejection-reason />重复岗位</label><label><input type="checkbox" name="rejectionReasons" value="其他" data-import-rejection-reason />其他</label>
+                </div><label for="job-import-other-rejection-reason">其他原因补充</label><input id="job-import-other-rejection-reason" name="otherRejectionReason" type="text" />
+              </div>
+              <details class="form-field form-field--wide job-screening-ai" id="job-screening-ai"><summary>可选：让 ChatGPT 根据完整JD和求职档案给初筛建议</summary><p>工作台只生成提示词和导入建议，不会自动永久淘汰岗位。</p><div class="job-tool-actions"><button class="secondary-button" id="generate-job-screening-prompt" type="button">生成AI初筛提示词</button><button class="secondary-button" id="copy-job-screening-prompt" type="button">复制提示词</button></div><textarea id="job-screening-prompt" rows="10" readonly></textarea><label for="job-screening-result-json">粘贴 ChatGPT 建议 JSON</label><textarea id="job-screening-result-json" rows="8" spellcheck="false"></textarea><button class="secondary-button" id="import-job-screening-suggestion" type="button">导入为可修改建议</button></details>
+              <div class="form-field form-field--wide">
+                <div class="job-import-preview" id="job-import-preview">还没有整理。点击“本地整理明确字段”后，这里会显示识别结果。</div>
+              </div>
+            </div>
+              </details></div>
+            <div class="form-actions" id="job-import-form-actions">
+              <span class="job-import-confirm-feedback" id="job-import-confirm-feedback" role="alert" aria-live="assertive"></span>
+              <button class="secondary-button" id="cancel-job-import" type="button">取消</button>
+              <button class="primary-button" id="save-job-import" type="submit">保存到岗位库</button>
+            </div>
+          </form>
+        </dialog>
+
+        <dialog class="job-dialog job-rescreen-dialog" id="job-rescreen-dialog" aria-labelledby="job-rescreen-title">
+          <div class="job-form">
+            <div class="dialog-heading">
+              <div>
+                <p class="section-kicker">LATEST PROFILE RE-SCREEN</p>
+                <h2 id="job-rescreen-title">使用最新求职档案重新初筛</h2>
+                <p id="job-rescreen-summary">只重新判断匹配和投递建议；不会重新OCR、覆盖JD原文或删除原初筛记录。</p>
+              </div>
+              <button class="dialog-close" id="close-job-rescreen-dialog" type="button" aria-label="关闭重新初筛">×</button>
+            </div>
+            <div class="job-tool-layout">
+              <section class="job-tool-card">
+                <button type="button" class="primary-button" id="job-ai-rescreen">AI使用最新档案重新初筛</button>
+                <p id="job-ai-rescreen-status" role="status">只生成新建议，确认后才改变您的决定。未连接服务时可用下方降级模式。</p>
+                <label for="job-rescreen-prompt">降级模式：基于最新求职档案的提示词</label>
+                <textarea id="job-rescreen-prompt" rows="16" readonly></textarea>
+                <div class="job-tool-actions"><button class="secondary-button" id="copy-job-rescreen-prompt" type="button">复制重新初筛提示词</button></div>
+              </section>
+              <section class="job-tool-card">
+                <label for="job-rescreen-result">粘贴 ChatGPT 返回的 JSON</label>
+                <textarea id="job-rescreen-result" rows="16" spellcheck="false"></textarea>
+                <div class="job-tool-actions job-tool-actions--end"><button class="primary-button" id="save-job-rescreen-result" type="button">确认并保存本次重新初筛</button></div>
+              </section>
+            </div>
+            <details class="job-rescreen-history workspace-collapsible workspace-collapsible--compact">
+              <summary>查看这个岗位以前的重新初筛记录</summary>
+              <div id="job-rescreen-history-list" class="workspace-collapsible__body"></div>
+            </details>
+          </div>
+        </dialog>
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+      </main>
+
+      
+
+      <footer>
+        <p>求职工作台 <span aria-hidden="true">·</span> 从简单开始，持续积累。</p>
+        <button id="back-to-top" type="button">返回顶部 ↑</button>
+      </footer>
+    </div>
+
+    <script src="collapsible.js?v=20260827-3"></script>
+    <script src="job-directions.js?v=20260909-1"></script>
+    <script src="script.js?v=20260909-resume2"></script>
+    <script src="interview.js?v=20260914-classic-cases"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+    <script src="job-ai-service.js?v=20260909-risk3"></script>
+    <script src="job-screenshot-import.js?v=20260906-5"></script>
+    <script src="job-batch-store.js?v=20260914-backup1"></script>
+    
+    
+    <script src="job-duplicate-detection.js?v=20260901-2"></script>
+    <script src="job-project-facts.js?v=20260909-master1"></script>
+    <script src="job-interview-core.js?v=20260914-classic-cases"></script>
+    <script src="jobs-advanced.js?v=20261008-ai-recovery-check"></script>
+    <script src="job-resumes.js?v=20260912-interview1"></script>
+    
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </body>
+</html>

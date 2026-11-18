@@ -1,0 +1,81 @@
+# Installed dependencies
+node_modules/
+
+# Local passwords, tokens and private configuration
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+.npmrc
+.netrc
+secrets/
+credentials/
+*.local.json
+*.local.yaml
+*.local.yml
+*.local.toml
+*.local.ini
+*.local.config.js
+*.local.config.cjs
+*.local.config.mjs
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Runtime logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Personal data: keep real exports and backups in these root directories.
+# Synthetic fixtures belong under tests/fixtures/ or tests/synthetic/.
+/private/
+/personal-data/
+/backups/
+/backup/
+/exports/
+/个人备份/
+/job-workspace-backup-*.json
+*.bak
+*.backup
+*~
+
+# Real screenshots: use these directories, not source or fixture folders.
+# Do not ignore all images or names containing "screenshot".
+/screenshots/
+/real-screenshots/
+/真实截图/
+
+# Temporary test output and browser state (not test source or fixtures)
+test-results/
+playwright-report/
+playwright/.cache/
+playwright/.auth/
+coverage/
+.nyc_output/
+blob-report/
+/test-artifacts/
+/tests/artifacts/
+/tests/output/
+/tmp/
+/temp/
+.cache/
+*.tmp
+*.temp
+
+# Editor and OS temporary files
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Keep package-lock.json, tests/, tools/, synthetic images/JSON and public
+# configuration templates versioned. Never put real credentials in templates.
+# Git ignores paths, not file contents: place private data in the directories
+# above. These rules do not remove files or untrack files already committed.
